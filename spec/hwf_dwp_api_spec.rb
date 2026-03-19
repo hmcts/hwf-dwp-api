@@ -1,0 +1,85 @@
+# frozen_string_literal: true
+
+RSpec.describe HwfDwpApi do
+  let(:valid_attributes) do
+    {
+      client_id: "test-client-id",
+      client_secret: "test-client-secret",
+      client_cert: "/path/to/client-cert.pem",
+      client_key: "/path/to/client-key.pem",
+      context: "hmcts-hwf",
+      policy_id: "hwf-policy"
+    }
+  end
+
+  describe ".new" do
+    context "when all mandatory attributes are provided" do
+      before do
+        allow(HwfDwpApi::Endpoint).to receive(:token).and_return({
+          "access_token" => "test-token",
+          "expires_in" => 3600
+        })
+      end
+
+      it "returns a Connection instance" do
+        expect(described_class.new(valid_attributes)).to be_a(HwfDwpApi::Connection)
+      end
+    end
+
+    context "when client_id is missing" do
+      it "raises a validation error" do
+        expect {
+          described_class.new(valid_attributes.merge(client_id: nil))
+        }.to raise_error(HwfDwpApiError, /CLIENT ID is missing/)
+      end
+    end
+
+    context "when client_secret is missing" do
+      it "raises a validation error" do
+        expect {
+          described_class.new(valid_attributes.merge(client_secret: ""))
+        }.to raise_error(HwfDwpApiError, /CLIENT SECRET is missing/)
+      end
+    end
+
+    context "when client_cert is missing" do
+      it "raises a validation error" do
+        expect {
+          described_class.new(valid_attributes.merge(client_cert: nil))
+        }.to raise_error(HwfDwpApiError, /CLIENT CERT is missing/)
+      end
+    end
+
+    context "when client_key is missing" do
+      it "raises a validation error" do
+        expect {
+          described_class.new(valid_attributes.merge(client_key: nil))
+        }.to raise_error(HwfDwpApiError, /CLIENT KEY is missing/)
+      end
+    end
+
+    context "when context is missing" do
+      it "raises a validation error" do
+        expect {
+          described_class.new(valid_attributes.merge(context: ""))
+        }.to raise_error(HwfDwpApiError, /CONTEXT is missing/)
+      end
+    end
+
+    context "when policy_id is missing" do
+      it "raises a validation error" do
+        expect {
+          described_class.new(valid_attributes.merge(policy_id: nil))
+        }.to raise_error(HwfDwpApiError, /POLICY ID is missing/)
+      end
+    end
+
+    context "when access_token is provided without expires_in" do
+      it "raises a validation error" do
+        expect {
+          described_class.new(valid_attributes.merge(access_token: "cached-token", expires_in: nil))
+        }.to raise_error(HwfDwpApiError, /EXPIRES IN is missing/)
+      end
+    end
+  end
+end
