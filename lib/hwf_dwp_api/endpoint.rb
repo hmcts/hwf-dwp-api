@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "json"
 require "hwf_dwp_api/endpoint/token"
 
 module HwfDwpApi
