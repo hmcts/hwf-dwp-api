@@ -7,6 +7,7 @@ gemspec
 group :development, :test do
   gem "base64"
   gem "dotenv"
+  gem "irb"
   gem "pry"
   gem "rake", "~> 13.0"
   gem "rspec", "~> 3.12"
