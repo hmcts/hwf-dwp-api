@@ -3,7 +3,7 @@
 require_relative 'lib/hwf_dwp_api/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'hwf_dwp_api'
+  spec.name          = 'hwf-dwp-api'
   spec.version       = HwfDwpApi::VERSION
   spec.authors       = ['Petr Zaparka']
   spec.email         = ['petr@zaparka.cz']

@@ -7,7 +7,7 @@ Ruby client library for communicating with the DWP Citizen API for benefit check
 Add to your Gemfile:
 
 ```ruby
-gem "hwf_dwp_api"
+gem "hwf-dwp-api"
 ```
 
 ## Configuration
