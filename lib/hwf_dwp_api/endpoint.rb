@@ -4,6 +4,7 @@ require 'json'
 require 'hwf_dwp_api/endpoint/token'
 require 'hwf_dwp_api/endpoint/match_citizen'
 require 'hwf_dwp_api/endpoint/citizen'
+require 'hwf_dwp_api/endpoint/claims'
 
 module HwfDwpApi
   module Endpoint
@@ -12,6 +13,7 @@ module HwfDwpApi
       include Token
       include MatchCitizen
       include Citizen
+      include Claims
 
       attr_writer :client_cert, :client_key, :ca_bundle
 

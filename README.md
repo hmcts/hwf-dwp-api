@@ -1,6 +1,6 @@
 # HwF DWP API Gem
 
-Ruby client library for communicating with the DWP Citizen API for benefit checks. Handles OAuth2 authentication, mTLS certificate-based communication, citizen matching, and citizen data retrieval.
+Ruby client library for communicating with the DWP Citizen API for benefit checks. Handles OAuth2 authentication, mTLS certificate-based communication, citizen matching, citizen data retrieval, and benefit claims lookup.
 
 ## Installation
 
@@ -99,12 +99,43 @@ citizen = connection.get_citizen
 citizen = connection.get_citizen("abc123...")
 
 # Access citizen data
-citizen.dig("data", "attributes", "nino")           # => "CD345678A"
-citizen.dig("data", "attributes", "name", "firstName")  # => "John"
+citizen.dig("data", "attributes", "nino")               # => "CD345678A"
+citizen.dig("data", "attributes", "name", "firstName")   # => "John"
 citizen.dig("data", "attributes", "dateOfBirth", "date") # => "1955-09-22"
 ```
 
-Note: The DWP API rotates the citizen ID on each call. The new ID is automatically stored in `connection.citizen_guid` for subsequent requests.
+### Get claims
+
+Retrieve benefit claims for a citizen. Uses the stored ID automatically, or pass one explicitly. By default returns only active claims (no end date).
+
+```ruby
+# All active claims (uses stored ID)
+claims = connection.get_claims
+
+# Filter by benefit type
+claims = connection.get_claims(connection.citizen_guid, benefit_type: "pensions_credit")
+
+# Filter by date range
+claims = connection.get_claims(connection.citizen_guid,
+  effective_from: "2021-01-01",
+  effective_to: "2025-12-31"
+)
+
+# Access claims data
+claims["data"].each do |claim|
+  claim.dig("attributes", "benefitType")  # => "pensions_credit"
+  claim.dig("attributes", "status")       # => "in_payment"
+  claim.dig("attributes", "awards")       # => [{ "startDate" => "2025-04-01", ... }]
+end
+```
+
+| Filter | Description |
+|---|---|
+| `benefit_type` | Filter by benefit type (e.g. `pensions_credit`, `universal_credit`) |
+| `effective_from` | Start of date range (`YYYY-MM-DD`) |
+| `effective_to` | End of date range (`YYYY-MM-DD`) |
+
+Note: The DWP API rotates the citizen ID on each call to `get_citizen` and `get_claims`. The new ID is automatically stored in `connection.citizen_guid` for subsequent requests.
 
 ### Full workflow
 
@@ -117,8 +148,14 @@ connection.match_citizen(last_name: "Doe", date_of_birth: "1955-09-22")
 # 2. Get citizen details (uses stored ID)
 citizen = connection.get_citizen
 
-# 3. Access the data
+# 3. Get claims (uses rotated ID automatically)
+claims = connection.get_claims
+
+# 4. Access the data
 puts citizen.dig("data", "attributes", "name")
+claims["data"].each do |claim|
+  puts "#{claim.dig("attributes", "benefitType")}: #{claim.dig("attributes", "status")}"
+end
 ```
 
 ## Error handling
@@ -135,7 +172,7 @@ rescue HwfDwpApiError => e
   parsed = JSON.parse(e.message)
 
   case e.error_type
-  when :not_found          # Citizen not matched (404)
+  when :not_found          # Citizen not matched / no claims found (404)
   when :unprocessable      # Disambiguation needed (422)
   when :bad_request        # Invalid request params (400)
   when :invalid_client     # Wrong client_id or secret (401)

@@ -73,5 +73,33 @@ module HwfDwpApi
       @citizen_guid = response.dig('data', 'id')
       response
     end
+
+    # Retrieves claims for a citizen by GUID.
+    # Uses the stored citizen_guid from match_citizen/get_citizen if no guid is provided.
+    #
+    # Optional filters:
+    #   :benefit_type   - String or Array of benefit type(s)
+    #   :effective_from - String YYYY-MM-DD
+    #   :effective_to   - String YYYY-MM-DD
+    #
+    # Returns JSON hash with claims data
+    def get_claims(guid = @citizen_guid, filters = {}, correlation_id = SecureRandom.uuid)
+      raise HwfDwpApiError.new('No citizen GUID available. Call match_citizen first.', :validation) unless guid
+
+      response = HwfDwpApi::Endpoint.claims(
+        guid,
+        header_info(correlation_id),
+        filters
+      )
+      update_citizen_guid(response)
+      response
+    end
+
+    private
+
+    def update_citizen_guid(response)
+      new_guid = response.dig('data', 0, 'attributes', 'guid')
+      @citizen_guid = new_guid if new_guid
+    end
   end
 end
