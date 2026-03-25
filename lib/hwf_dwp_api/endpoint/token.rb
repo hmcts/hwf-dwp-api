@@ -6,11 +6,11 @@ module HwfDwpApi
       def token(client_id, client_secret)
         @response = HTTParty.post(
           "#{api_url}/citizens-information/oauth2/token",
-          headers: { "Content-Type" => "application/x-www-form-urlencoded" },
+          headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
           body: {
             client_id: client_id,
             client_secret: client_secret,
-            grant_type: "client_credentials"
+            grant_type: 'client_credentials'
           },
           **mtls_options
         )
@@ -27,8 +27,8 @@ module HwfDwpApi
       def process_token_response
         return response_hash if @response.code == 200
 
-        error_code = response_hash["error"]
-        error_desc = response_hash["error_description"]
+        error_code = response_hash['error']
+        error_desc = response_hash['error_description']
         message = "OAuth token request failed: #{error_code} - #{error_desc}"
 
         error_type = case @response.code

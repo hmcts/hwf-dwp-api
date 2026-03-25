@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "endpoint"
+require_relative 'endpoint'
 
 module HwfDwpApi
   class Authentication

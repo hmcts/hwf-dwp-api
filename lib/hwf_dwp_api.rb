@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_relative "hwf_dwp_api/connection"
-require_relative "hwf_dwp_api/connection_attribute_validation"
+require_relative 'hwf_dwp_api/connection'
+require_relative 'hwf_dwp_api/connection_attribute_validation'
 
 module HwfDwpApi
   ENV_MAPPING = {
-    client_id: "DWP_CLIENT_ID",
-    client_secret: "DWP_CLIENT_SECRET",
-    client_cert: "DWP_CLIENT_CERT",
-    client_key: "DWP_CLIENT_KEY",
-    context: "DWP_CONTEXT",
-    policy_id: "DWP_POLICY_ID",
-    ca_bundle: "DWP_CA_BUNDLE"
+    client_id: 'DWP_CLIENT_ID',
+    client_secret: 'DWP_CLIENT_SECRET',
+    client_cert: 'DWP_CLIENT_CERT',
+    client_key: 'DWP_CLIENT_KEY',
+    context: 'DWP_CONTEXT',
+    policy_id: 'DWP_POLICY_ID',
+    ca_bundle: 'DWP_CA_BUNDLE'
   }.freeze
 
   class << self

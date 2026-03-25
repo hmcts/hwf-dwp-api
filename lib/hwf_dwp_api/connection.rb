@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "authentication"
-require "hwf_dwp_api/hwf_dwp_api_error"
-require "securerandom"
+require_relative 'authentication'
+require 'hwf_dwp_api/hwf_dwp_api_error'
+require 'hwf_dwp_api/hwf_dwp_api_token_error'
+require 'securerandom'
 
 # Connection methods
 # IMPORTANT: To be able to get benefit information you need to call match_citizen method first
@@ -54,7 +55,7 @@ module HwfDwpApi
         citizen_params,
         header_info(correlation_id)
       )
-      @citizen_guid = response.dig("data", "id")
+      @citizen_guid = response.dig('data', 'id')
       response
     end
   end

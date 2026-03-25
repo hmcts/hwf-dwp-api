@@ -2,7 +2,7 @@
 
 module HwfDwpApi
   module ConnectionAttributeValidation
-    require_relative "hwf_dwp_api_error"
+    require_relative 'hwf_dwp_api_error'
 
     def validate_mandatory_attributes(connection_attributes)
       client_id_present?(connection_attributes[:client_id])
@@ -18,13 +18,13 @@ module HwfDwpApi
     def client_id_present?(value)
       return true unless value.nil? || value.empty?
 
-      raise HwfDwpApiError.new("Connection attributes validation: CLIENT ID is missing", :validation)
+      raise HwfDwpApiError.new('Connection attributes validation: CLIENT ID is missing', :validation)
     end
 
     def client_secret_present?(value)
       return true unless value.nil? || value.empty?
 
-      raise HwfDwpApiError.new("Connection attributes validation: CLIENT SECRET is missing", :validation)
+      raise HwfDwpApiError.new('Connection attributes validation: CLIENT SECRET is missing', :validation)
     end
 
     def validate_mtls_attributes(attributes)
@@ -35,25 +35,25 @@ module HwfDwpApi
     def client_cert_present?(value)
       return true unless value.nil? || value.empty?
 
-      raise HwfDwpApiError.new("Connection attributes validation: CLIENT CERT is missing", :validation)
+      raise HwfDwpApiError.new('Connection attributes validation: CLIENT CERT is missing', :validation)
     end
 
     def client_key_present?(value)
       return true unless value.nil? || value.empty?
 
-      raise HwfDwpApiError.new("Connection attributes validation: CLIENT KEY is missing", :validation)
+      raise HwfDwpApiError.new('Connection attributes validation: CLIENT KEY is missing', :validation)
     end
 
     def context_present?(value)
       return true unless value.nil? || value.empty?
 
-      raise HwfDwpApiError.new("Connection attributes validation: CONTEXT is missing", :validation)
+      raise HwfDwpApiError.new('Connection attributes validation: CONTEXT is missing', :validation)
     end
 
     def policy_id_present?(value)
       return true unless value.nil? || value.empty?
 
-      raise HwfDwpApiError.new("Connection attributes validation: POLICY ID is missing", :validation)
+      raise HwfDwpApiError.new('Connection attributes validation: POLICY ID is missing', :validation)
     end
 
     def expires_in_valid?(value)
@@ -67,7 +67,7 @@ module HwfDwpApi
     def expires_in_blank?(value)
       return unless value.nil? || (value.is_a?(String) && value.empty?)
 
-      raise HwfDwpApiError.new("Connection attributes validation: EXPIRES IN is missing", :validation)
+      raise HwfDwpApiError.new('Connection attributes validation: EXPIRES IN is missing', :validation)
     end
 
     def validate_date_format(value)
@@ -76,17 +76,17 @@ module HwfDwpApi
         string_date_validation(value)
       when Time, Integer, Float
         if Time.at(value) < Time.now
-          raise HwfDwpApiError.new("Connection attributes validation: EXPIRES IN is in past", :validation)
+          raise HwfDwpApiError.new('Connection attributes validation: EXPIRES IN is in past', :validation)
         end
       end
     end
 
     def string_date_validation(value)
       if DateTime.parse(value).to_time < Time.now
-        raise HwfDwpApiError.new("Connection attributes validation: EXPIRES IN is in past", :validation)
+        raise HwfDwpApiError.new('Connection attributes validation: EXPIRES IN is in past', :validation)
       end
     rescue Date::Error
-      raise HwfDwpApiError.new("Connection attributes validation: EXPIRES IN has invalid format", :validation)
+      raise HwfDwpApiError.new('Connection attributes validation: EXPIRES IN has invalid format', :validation)
     end
   end
 end

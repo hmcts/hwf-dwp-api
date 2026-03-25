@@ -31,41 +31,36 @@ module HwfDwpApi
 
         {
           data: {
-            type: "Match",
+            type: 'Match',
             attributes: attributes
           }
         }
       end
 
       def process_match_response
-        case @response.code
-        when 200
-          response_hash
-        when 404
-          raise HwfDwpApiError.new(
-            "Citizen not found: #{error_detail}", :not_found
-          )
-        when 422
-          raise HwfDwpApiError.new(
-            "Unable to match citizen: #{error_detail}", :unprocessable
-          )
-        when 400
-          raise HwfDwpApiError.new(
-            "Bad request: #{error_detail}", :bad_request
-          )
-        when 401
-          raise HwfDwpApiTokenError.new(
-            "Authentication failed: #{error_detail}", :invalid_token
-          )
-        else
-          raise HwfDwpApiError.new(
-            "Unexpected response: #{@response.code} - #{error_detail}", :standard_error
-          )
-        end
+        return response_hash if @response.code == 200
+
+        raise_match_error
+      end
+
+      def raise_match_error
+        message, error_type = match_error_details
+        raise HwfDwpApiTokenError.new(message, error_type) if @response.code == 401
+
+        raise HwfDwpApiError.new(message, error_type)
+      end
+
+      def match_error_details
+        {
+          404 => ["Citizen not found: #{error_detail}", :not_found],
+          422 => ["Unable to match citizen: #{error_detail}", :unprocessable],
+          400 => ["Bad request: #{error_detail}", :bad_request],
+          401 => ["Authentication failed: #{error_detail}", :invalid_token]
+        }.fetch(@response.code, ["Unexpected response: #{@response.code} - #{error_detail}", :standard_error])
       end
 
       def error_detail
-        response_hash.dig("errors", 0, "detail") || response_hash.dig("errors", 0, "title")
+        response_hash.dig('errors', 0, 'detail') || response_hash.dig('errors', 0, 'title')
       end
     end
   end
