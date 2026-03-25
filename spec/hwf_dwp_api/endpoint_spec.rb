@@ -43,12 +43,13 @@ RSpec.describe HwfDwpApi::Endpoint do
           )
       end
 
-      it 'raises a HwfDwpApiError with invalid_client type' do
+      it 'raises a HwfDwpApiError with JSON message' do
         expect do
           described_class.token('bad-id', 'bad-secret')
         end.to raise_error(HwfDwpApiError) { |error|
           expect(error.error_type).to eq(:invalid_client)
-          expect(error.message).to include('invalid_client')
+          parsed = JSON.parse(error.message)
+          expect(parsed['error']).to eq('invalid_client')
         }
       end
     end
@@ -63,12 +64,13 @@ RSpec.describe HwfDwpApi::Endpoint do
           )
       end
 
-      it 'raises a HwfDwpApiError with unsupported_grant_type type' do
+      it 'raises a HwfDwpApiError with JSON message' do
         expect do
           described_class.token('test-id', 'test-secret')
         end.to raise_error(HwfDwpApiError) { |error|
           expect(error.error_type).to eq(:unsupported_grant_type)
-          expect(error.message).to include('unsupported_grant_type')
+          parsed = JSON.parse(error.message)
+          expect(parsed['error']).to eq('unsupported_grant_type')
         }
       end
     end
@@ -83,12 +85,13 @@ RSpec.describe HwfDwpApi::Endpoint do
           )
       end
 
-      it 'raises a HwfDwpApiError with invalid_request type' do
+      it 'raises a HwfDwpApiError with JSON message' do
         expect do
           described_class.token('test-id', 'test-secret')
         end.to raise_error(HwfDwpApiError) { |error|
           expect(error.error_type).to eq(:invalid_request)
-          expect(error.message).to include('invalid_request')
+          parsed = JSON.parse(error.message)
+          expect(parsed['error']).to eq('invalid_request')
         }
       end
     end

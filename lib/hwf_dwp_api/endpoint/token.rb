@@ -28,8 +28,6 @@ module HwfDwpApi
         return response_hash if @response.code == 200
 
         error_code = response_hash['error']
-        error_desc = response_hash['error_description']
-        message = "OAuth token request failed: #{error_code} - #{error_desc}"
 
         error_type = case @response.code
                      when 401 then :invalid_client
@@ -37,7 +35,7 @@ module HwfDwpApi
                      else :token_error
                      end
 
-        raise HwfDwpApiError.new(message, error_type)
+        raise HwfDwpApiError.new(response_hash.to_json, error_type)
       rescue HwfDwpApiError
         raise
       rescue StandardError => e

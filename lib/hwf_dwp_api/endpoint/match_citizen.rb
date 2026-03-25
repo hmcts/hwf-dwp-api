@@ -52,11 +52,11 @@ module HwfDwpApi
 
       def match_error_details
         {
-          404 => ["Citizen not found: #{error_detail}", :not_found],
-          422 => ["Unable to match citizen: #{error_detail}", :unprocessable],
-          400 => ["Bad request: #{error_detail}", :bad_request],
-          401 => ["Authentication failed: #{error_detail}", :invalid_token]
-        }.fetch(@response.code, ["Unexpected response: #{@response.code} - #{error_detail}", :standard_error])
+          400 => [response_hash.to_json, :bad_request],
+          404 => [response_hash.to_json, :not_found],
+          422 => [response_hash.to_json, :unprocessable],
+          401 => [response_hash.to_json, :invalid_token]
+        }.fetch(@response.code, [response_hash.to_json, :standard_error])
       end
 
       def error_detail

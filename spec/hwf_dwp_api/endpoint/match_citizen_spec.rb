@@ -91,11 +91,14 @@ RSpec.describe HwfDwpApi::Endpoint, 'match_citizen' do
         )
     end
 
-    it 'raises HwfDwpApiError with not_found type' do
+    it 'raises HwfDwpApiError with JSON message' do
       expect do
         described_class.match_citizen(citizen_params, header_info)
       end.to raise_error(HwfDwpApiError) { |error|
         expect(error.error_type).to eq(:not_found)
+        parsed = JSON.parse(error.message)
+        expect(parsed.dig('errors', 0, 'status')).to eq('404')
+        expect(parsed.dig('errors', 0, 'detail')).to include('Unable to find')
       }
     end
   end
@@ -114,12 +117,13 @@ RSpec.describe HwfDwpApi::Endpoint, 'match_citizen' do
         )
     end
 
-    it 'raises HwfDwpApiError with unprocessable type' do
+    it 'raises HwfDwpApiError with JSON message' do
       expect do
         described_class.match_citizen(citizen_params, header_info)
       end.to raise_error(HwfDwpApiError) { |error|
         expect(error.error_type).to eq(:unprocessable)
-        expect(error.message).to include('Further details required')
+        parsed = JSON.parse(error.message)
+        expect(parsed.dig('errors', 0, 'detail')).to eq('Further details required')
       }
     end
   end
@@ -137,11 +141,13 @@ RSpec.describe HwfDwpApi::Endpoint, 'match_citizen' do
         )
     end
 
-    it 'raises HwfDwpApiError with bad_request type' do
+    it 'raises HwfDwpApiError with JSON message' do
       expect do
         described_class.match_citizen({ last_name: nil, date_of_birth: '1955-09-22' }, header_info)
       end.to raise_error(HwfDwpApiError) { |error|
         expect(error.error_type).to eq(:bad_request)
+        parsed = JSON.parse(error.message)
+        expect(parsed.dig('errors', 0, 'detail')).to eq('lastName is required')
       }
     end
   end
