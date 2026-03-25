@@ -2,12 +2,14 @@
 
 require "json"
 require "hwf_dwp_api/endpoint/token"
+require "hwf_dwp_api/endpoint/match_citizen"
 
 module HwfDwpApi
   module Endpoint
     class << self
       require "httparty"
       include Token
+      include MatchCitizen
 
       attr_writer :client_cert, :client_key, :ca_bundle
 

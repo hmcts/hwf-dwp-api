@@ -2,14 +2,14 @@
 
 RSpec.describe HwfDwpApi::Endpoint do
   before do
-    ENV["DWP_API_URL"] = "https://external-test.integr-dev.dwpcloud.uk:8443/capi"
+    ENV["DWP_API_URL"] = "https://external-test.integr-dev.dwpcloud.uk:8443"
     described_class.client_cert = nil
     described_class.client_key = nil
     described_class.ca_bundle = nil
   end
 
   describe ".token" do
-    let(:token_url) { "https://external-test.integr-dev.dwpcloud.uk:8443/capi/oauth2/token" }
+    let(:token_url) { "https://external-test.integr-dev.dwpcloud.uk:8443/citizens-information/oauth2/token" }
 
     context "when request is successful" do
       before do

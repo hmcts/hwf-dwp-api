@@ -18,7 +18,7 @@ RSpec.configure do |config|
   WebMock.disable_net_connect!(allow_localhost: true)
 
   Dir["./spec/support/**/*.rb"].each { |f| require f }
-  ENV["DWP_API_URL"] = "https://external-test.integr-dev.dwpcloud.uk:8443/capi"
+  ENV["DWP_API_URL"] = "https://external-test.integr-dev.dwpcloud.uk:8443"
 end
 
 VCR.configure do |c|

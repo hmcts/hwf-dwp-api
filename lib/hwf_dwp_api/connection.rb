@@ -2,6 +2,7 @@
 
 require_relative "authentication"
 require "hwf_dwp_api/hwf_dwp_api_error"
+require "securerandom"
 
 # Connection methods
 # IMPORTANT: To be able to get benefit information you need to call match_citizen method first
@@ -38,6 +39,23 @@ module HwfDwpApi
 
     def access_token
       @authentication.access_token
+    end
+
+    # citizen_params:
+    #   :last_name      - String (required)
+    #   :date_of_birth  - String YYYY-MM-DD (required)
+    #   :first_name     - String (optional)
+    #   :nino_fragment   - String last 4 digits (optional)
+    #   :postcode       - String (optional)
+    #
+    # Returns GUID string on success
+    def match_citizen(citizen_params, correlation_id = SecureRandom.uuid)
+      response = HwfDwpApi::Endpoint.match_citizen(
+        citizen_params,
+        header_info(correlation_id)
+      )
+      @citizen_guid = response.dig("data", "id")
+      response
     end
   end
 end

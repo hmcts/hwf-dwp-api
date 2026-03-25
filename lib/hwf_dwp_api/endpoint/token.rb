@@ -5,7 +5,7 @@ module HwfDwpApi
     module Token
       def token(client_id, client_secret)
         @response = HTTParty.post(
-          "#{api_url}/oauth2/token",
+          "#{api_url}/citizens-information/oauth2/token",
           headers: { "Content-Type" => "application/x-www-form-urlencoded" },
           body: {
             client_id: client_id,

@@ -1,6 +1,6 @@
 # HwF DWP API Gem
 
-Ruby client library for communicating with the DWP Citizen API for benefit checks. Handles OAuth2 authentication and mTLS certificate-based communication.
+Ruby client library for communicating with the DWP Citizen API for benefit checks. Handles OAuth2 authentication, mTLS certificate-based communication, and citizen matching.
 
 ## Installation
 
@@ -22,7 +22,7 @@ cp .env.example .env
 
 | Variable | Required | Description |
 |---|---|---|
-| `DWP_API_URL` | Yes | Base URL of the DWP API |
+| `DWP_API_URL` | Yes | Root URL of the DWP API (e.g. `https://localhost:4000`) |
 | `DWP_CLIENT_ID` | Yes | OAuth2 client ID |
 | `DWP_CLIENT_SECRET` | Yes | OAuth2 client secret |
 | `DWP_CLIENT_CERT` | Yes | Path to PEM client certificate for mTLS |
@@ -35,17 +35,13 @@ All attributes can also be passed directly to `HwfDwpApi.new`, which takes prece
 
 ## Usage
 
-### With ENV variables configured
+### Connect
 
 ```ruby
+# Using ENV variables
 connection = HwfDwpApi.new
-connection.access_token
-connection.header_info(SecureRandom.uuid)
-```
 
-### With explicit attributes
-
-```ruby
+# Or with explicit attributes
 connection = HwfDwpApi.new(
   client_id: "my-client-id",
   client_secret: "my-client-secret",
@@ -54,15 +50,62 @@ connection = HwfDwpApi.new(
   context: "hmcts-hwf",
   policy_id: "hwf-policy"
 )
-```
 
-### With a cached token
-
-```ruby
+# Or with a cached token
 connection = HwfDwpApi.new(
   access_token: "cached-token",
   expires_in: Time.now + 3600
 )
+```
+
+### Match citizen
+
+To look up a citizen, call `match_citizen` with their details. Returns a GUID string on success.
+
+```ruby
+# Required params only
+guid = connection.match_citizen(
+  last_name: "Doe",
+  date_of_birth: "1955-09-22"
+)
+
+# With optional params (used for disambiguation)
+guid = connection.match_citizen(
+  last_name: "Smith",
+  date_of_birth: "1985-06-15",
+  first_name: "Jane",
+  nino_fragment: "1234",
+  postcode: "SW1A 1AA"
+)
+```
+
+| Parameter | Required | Description |
+|---|---|---|
+| `last_name` | Yes | Citizen's last name (max 35 chars) |
+| `date_of_birth` | Yes | Date of birth in `YYYY-MM-DD` format |
+| `first_name` | No | First name (max 70 chars) |
+| `nino_fragment` | No | Last 4 digits of NINO, excluding suffix |
+| `postcode` | No | UK postcode (max 8 chars) |
+
+## Error handling
+
+All errors raise `HwfDwpApiError` (or `HwfDwpApiTokenError` for auth issues) with an `error_type` attribute for programmatic handling.
+
+```ruby
+begin
+  connection.match_citizen(last_name: "Doe", date_of_birth: "1955-09-22")
+rescue HwfDwpApiTokenError => e
+  # Handle expired/invalid token
+rescue HwfDwpApiError => e
+  case e.error_type
+  when :not_found          # Citizen not matched (404)
+  when :unprocessable      # Disambiguation needed (422)
+  when :bad_request        # Invalid request params (400)
+  when :invalid_client     # Wrong client_id or secret (401)
+  when :certificate_error  # mTLS certificate mismatch
+  when :connection_error   # Server unreachable
+  end
+end
 ```
 
 ## Development
