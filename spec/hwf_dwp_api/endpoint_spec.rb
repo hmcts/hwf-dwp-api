@@ -33,7 +33,7 @@ RSpec.describe HwfDwpApi::Endpoint do
       end
     end
 
-    context "when credentials are invalid" do
+    context "when client_id or secret is wrong" do
       before do
         stub_request(:post, token_url)
           .to_return(
@@ -43,11 +43,82 @@ RSpec.describe HwfDwpApi::Endpoint do
           )
       end
 
-      it "raises a HwfDwpApiError with token_error type" do
+      it "raises a HwfDwpApiError with invalid_client type" do
         expect {
           described_class.token("bad-id", "bad-secret")
         }.to raise_error(HwfDwpApiError) { |error|
-          expect(error.error_type).to eq(:token_error)
+          expect(error.error_type).to eq(:invalid_client)
+          expect(error.message).to include("invalid_client")
+        }
+      end
+    end
+
+    context "when grant_type is wrong" do
+      before do
+        stub_request(:post, token_url)
+          .to_return(
+            status: 400,
+            body: { error: "unsupported_grant_type", error_description: "Grant type not supported" }.to_json,
+            headers: { "Content-Type" => "application/json" }
+          )
+      end
+
+      it "raises a HwfDwpApiError with unsupported_grant_type type" do
+        expect {
+          described_class.token("test-id", "test-secret")
+        }.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(:unsupported_grant_type)
+          expect(error.message).to include("unsupported_grant_type")
+        }
+      end
+    end
+
+    context "when a required param is missing" do
+      before do
+        stub_request(:post, token_url)
+          .to_return(
+            status: 400,
+            body: { error: "invalid_request", error_description: "Missing required parameter" }.to_json,
+            headers: { "Content-Type" => "application/json" }
+          )
+      end
+
+      it "raises a HwfDwpApiError with invalid_request type" do
+        expect {
+          described_class.token("test-id", "test-secret")
+        }.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(:invalid_request)
+          expect(error.message).to include("invalid_request")
+        }
+      end
+    end
+
+    context "when client certificate does not match" do
+      before do
+        stub_request(:post, token_url).to_raise(OpenSSL::SSL::SSLError.new("SSL_connect returned=1 errno=0 peeraddr=127.0.0.1:4000 state=error: certificate verify failed"))
+      end
+
+      it "raises a HwfDwpApiError with certificate_error type" do
+        expect {
+          described_class.token("test-id", "test-secret")
+        }.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(:certificate_error)
+          expect(error.message).to include("mTLS connection failed")
+        }
+      end
+    end
+
+    context "when the server is unreachable" do
+      before do
+        stub_request(:post, token_url).to_raise(Errno::ECONNREFUSED.new("Connection refused - connect(2)"))
+      end
+
+      it "raises a HwfDwpApiError with connection_error type" do
+        expect {
+          described_class.token("test-id", "test-secret")
+        }.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(:connection_error)
+          expect(error.message).to include("Connection refused")
         }
       end
     end
@@ -62,10 +133,12 @@ RSpec.describe HwfDwpApi::Endpoint do
           )
       end
 
-      it "raises a HwfDwpApiError" do
+      it "raises a HwfDwpApiError with token_error type" do
         expect {
           described_class.token("test-id", "test-secret")
-        }.to raise_error(HwfDwpApiError)
+        }.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(:token_error)
+        }
       end
     end
   end
