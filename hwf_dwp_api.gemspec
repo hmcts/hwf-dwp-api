@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'lib/hwf_dwp_api/version'
+
 Gem::Specification.new do |spec|
   spec.name          = 'hwf_dwp_api'
-  spec.version       = '0.1.0'
+  spec.version       = HwfDwpApi::VERSION
   spec.authors       = ['Petr Zaparka']
   spec.email         = ['petr@zaparka.cz']
 
@@ -14,6 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/hmcts/hwf_dwp_api'
+  spec.metadata['changelog_uri'] = 'https://github.com/hmcts/hwf_dwp_api/blob/main/CHANGELOG.md'
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{\A(?:test|spec|features)/}) }
@@ -23,7 +26,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'httparty', '~> 0.24.0'
-  spec.add_dependency 'uuid', '~> 2.3.9'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

@@ -1,2 +1,4 @@
 .env
 .rspec_status
+*.gem
+pkg/
