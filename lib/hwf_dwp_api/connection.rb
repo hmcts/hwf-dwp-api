@@ -55,7 +55,7 @@ module HwfDwpApi
         citizen_params,
         header_info(correlation_id)
       )
-      @citizen_guid = response.dig('data', 'id')
+      @citizen_guid = response.dig('data', 'guid')
       response
     end
   end

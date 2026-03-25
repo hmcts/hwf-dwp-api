@@ -38,7 +38,7 @@ module HwfDwpApi
       end
 
       def process_match_response
-        return response_hash if @response.code == 200
+        return transform_match_response if @response.code == 200
 
         raise_match_error
       end
@@ -57,6 +57,13 @@ module HwfDwpApi
           422 => [response_hash.to_json, :unprocessable],
           401 => [response_hash.to_json, :invalid_token]
         }.fetch(@response.code, [response_hash.to_json, :standard_error])
+      end
+
+      def transform_match_response
+        hash = response_hash
+        data = hash['data']
+        data['guid'] = data.delete('id') if data&.key?('id')
+        hash
       end
 
       def error_detail
