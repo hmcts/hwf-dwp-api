@@ -37,11 +37,11 @@ RSpec.describe HwfDwpApi::Endpoint, 'match_citizen' do
         )
     end
 
-    it 'returns the full JSON response with guid instead of id' do
+    it 'returns the full JSON response' do
       result = described_class.match_citizen(citizen_params, header_info)
       expect(result).to eq({
                              'data' => {
-                               'guid' => 'guid-123',
+                               'id' => 'guid-123',
                                'type' => 'MatchResult',
                                'attributes' => { 'matchingScenario' => 'scenario_1' }
                              }

@@ -1,6 +1,6 @@
 # HwF DWP API Gem
 
-Ruby client library for communicating with the DWP Citizen API for benefit checks. Handles OAuth2 authentication, mTLS certificate-based communication, and citizen matching.
+Ruby client library for communicating with the DWP Citizen API for benefit checks. Handles OAuth2 authentication, mTLS certificate-based communication, citizen matching, and citizen data retrieval.
 
 ## Installation
 
@@ -60,17 +60,17 @@ connection = HwfDwpApi.new(
 
 ### Match citizen
 
-To look up a citizen, call `match_citizen` with their details. Returns a GUID string on success.
+Match a citizen against the DWP database. Returns a JSON hash with the citizen's ID on success.
 
 ```ruby
-# Required params only
-guid = connection.match_citizen(
+response = connection.match_citizen(
   last_name: "Doe",
   date_of_birth: "1955-09-22"
 )
+response.dig("data", "id")  # => "abc123..."
 
 # With optional params (used for disambiguation)
-guid = connection.match_citizen(
+response = connection.match_citizen(
   last_name: "Smith",
   date_of_birth: "1985-06-15",
   first_name: "Jane",
@@ -87,16 +87,53 @@ guid = connection.match_citizen(
 | `nino_fragment` | No | Last 4 digits of NINO, excluding suffix |
 | `postcode` | No | UK postcode (max 8 chars) |
 
+### Get citizen details
+
+Retrieve full citizen data using the ID from `match_citizen`. The ID is stored automatically, so you can call `get_citizen` without arguments after a successful match.
+
+```ruby
+# Uses the stored ID from match_citizen
+citizen = connection.get_citizen
+
+# Or pass an ID explicitly
+citizen = connection.get_citizen("abc123...")
+
+# Access citizen data
+citizen.dig("data", "attributes", "nino")           # => "CD345678A"
+citizen.dig("data", "attributes", "name", "firstName")  # => "John"
+citizen.dig("data", "attributes", "dateOfBirth", "date") # => "1955-09-22"
+```
+
+Note: The DWP API rotates the citizen ID on each call. The new ID is automatically stored in `connection.citizen_guid` for subsequent requests.
+
+### Full workflow
+
+```ruby
+connection = HwfDwpApi.new
+
+# 1. Match citizen
+connection.match_citizen(last_name: "Doe", date_of_birth: "1955-09-22")
+
+# 2. Get citizen details (uses stored ID)
+citizen = connection.get_citizen
+
+# 3. Access the data
+puts citizen.dig("data", "attributes", "name")
+```
+
 ## Error handling
 
-All errors raise `HwfDwpApiError` (or `HwfDwpApiTokenError` for auth issues) with an `error_type` attribute for programmatic handling.
+All errors raise `HwfDwpApiError` (or `HwfDwpApiTokenError` for auth issues) with an `error_type` attribute and a JSON-formatted message containing the full API response.
 
 ```ruby
 begin
   connection.match_citizen(last_name: "Doe", date_of_birth: "1955-09-22")
 rescue HwfDwpApiTokenError => e
   # Handle expired/invalid token
+  JSON.parse(e.message)  # Full API error response
 rescue HwfDwpApiError => e
+  parsed = JSON.parse(e.message)
+
   case e.error_type
   when :not_found          # Citizen not matched (404)
   when :unprocessable      # Disambiguation needed (422)

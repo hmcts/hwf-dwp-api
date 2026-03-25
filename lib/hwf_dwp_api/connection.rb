@@ -55,7 +55,22 @@ module HwfDwpApi
         citizen_params,
         header_info(correlation_id)
       )
-      @citizen_guid = response.dig('data', 'guid')
+      @citizen_guid = response.dig('data', 'id')
+      response
+    end
+
+    # Retrieves citizen details by GUID.
+    # Uses the stored citizen_guid from match_citizen if no guid is provided.
+    #
+    # Returns JSON hash with citizen data
+    def get_citizen(guid = @citizen_guid, correlation_id = SecureRandom.uuid)
+      raise HwfDwpApiError.new('No citizen GUID available. Call match_citizen first.', :validation) unless guid
+
+      response = HwfDwpApi::Endpoint.citizen(
+        guid,
+        header_info(correlation_id)
+      )
+      @citizen_guid = response.dig('data', 'id')
       response
     end
   end
