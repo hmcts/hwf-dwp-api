@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'hwf_dwp_api/endpoint/token'
-require 'hwf_dwp_api/endpoint/match_citizen'
-require 'hwf_dwp_api/endpoint/citizen'
-require 'hwf_dwp_api/endpoint/claims'
+require 'hwf-dwp-api/endpoint/token'
+require 'hwf-dwp-api/endpoint/match_citizen'
+require 'hwf-dwp-api/endpoint/citizen'
+require 'hwf-dwp-api/endpoint/claims'
 
 module HwfDwpApi
   module Endpoint

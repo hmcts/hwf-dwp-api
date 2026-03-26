@@ -15,6 +15,11 @@ Metrics/MethodLength:
 Naming/AccessorMethodName:
   Enabled: false
 
+Naming/FileName:
+  Exclude:
+    - 'lib/hwf-dwp-api.rb'
+    - 'lib/hwf-dwp-api/**/*'
+
 Naming/PredicateMethod:
   Enabled: false
 

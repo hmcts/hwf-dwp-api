@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'dotenv/load'
-require 'hwf_dwp_api'
+require 'hwf-dwp-api'
 require 'pry'
 require 'vcr'
 require 'timecop'

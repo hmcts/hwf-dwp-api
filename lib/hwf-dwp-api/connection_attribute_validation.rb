@@ -2,7 +2,7 @@
 
 module HwfDwpApi
   module ConnectionAttributeValidation
-    require_relative 'hwf_dwp_api_error'
+    require_relative 'hwf-dwp-api-error'
 
     def validate_mandatory_attributes(connection_attributes)
       client_id_present?(connection_attributes[:client_id])

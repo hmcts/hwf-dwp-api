@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'lib/hwf_dwp_api/version'
+require_relative 'lib/hwf-dwp-api/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'hwf-dwp-api'

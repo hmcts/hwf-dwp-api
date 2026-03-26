@@ -194,7 +194,7 @@ bundle exec rspec
 ### Console
 
 ```bash
-bundle exec irb -r dotenv/load -r hwf_dwp_api
+bundle exec irb -r dotenv/load -r hwf-dwp-api
 ```
 
 ## License

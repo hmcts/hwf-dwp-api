@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'authentication'
-require 'hwf_dwp_api/hwf_dwp_api_error'
-require 'hwf_dwp_api/hwf_dwp_api_token_error'
+require 'hwf-dwp-api/hwf-dwp-api-error'
+require 'hwf-dwp-api/hwf-dwp-api-token-error'
 require 'securerandom'
 
 # Connection methods

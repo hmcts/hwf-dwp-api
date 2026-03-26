@@ -1,10 +1,13 @@
 # Changelog
 
-## [0.1.1] - 2026-03-25
+## [0.2.0] - 2026-03-26
 
 ### Changed
 
 - Renamed gem from `hwf_dwp_api` to `hwf-dwp-api`
+- Renamed all file paths from underscores to hyphens (`lib/hwf-dwp-api/`)
+- Require path is now `require 'hwf-dwp-api'`
+- Refactored `HwfDwpApi.new` from `class << self` to `def self.new` for better RSpec verifiability
 
 ## [0.1.0] - 2026-03-25
 
