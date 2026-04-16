@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.1] - 2026-04-16
+
+### Fixed
+
+- Token auto-renewal now works correctly when token expires mid-session. `Connection#access_token` calls `Authentication#token` which checks expiry, instead of bypassing the check via the `access_token` attr_reader.
+
+### Changed
+
+- Enabled `rubocop-rspec` plugin in RuboCop configuration
+- Disabled `SuggestExtensions` in RuboCop configuration
+
 ## [0.2.0] - 2026-03-26
 
 ### Changed
