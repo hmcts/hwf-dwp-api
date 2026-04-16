@@ -39,7 +39,7 @@ module HwfDwpApi
     end
 
     def access_token
-      @authentication.access_token
+      @authentication.token
     end
 
     # citizen_params:

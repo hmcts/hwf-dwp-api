@@ -36,6 +36,21 @@ RSpec.describe HwfDwpApi::Connection do
       connection = described_class.new(connection_attributes)
       expect(connection.access_token).to eq('test-access-token')
     end
+
+    it 'renews the token when expired' do
+      connection = described_class.new(connection_attributes)
+      renewed_response = {
+        'access_token' => 'renewed-token',
+        'expires_in' => 3600,
+        'token_type' => 'Bearer'
+      }
+
+      Timecop.travel(Time.now + 4000)
+      allow(HwfDwpApi::Endpoint).to receive(:token).and_return(renewed_response)
+
+      expect(connection.access_token).to eq('renewed-token')
+      Timecop.return
+    end
   end
 
   describe '#header_info' do
