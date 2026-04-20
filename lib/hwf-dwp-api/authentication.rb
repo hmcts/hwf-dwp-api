@@ -13,6 +13,10 @@ module HwfDwpApi
       prepare_token(connection_attributes)
     end
 
+    def inspect
+      "#<#{self.class} token=#{@access_token ? '[FILTERED]' : 'nil'} expires_in=#{@expires_in.inspect}>"
+    end
+
     def token
       if @token.nil?
         log('[HwfDwpApi] No token present, requesting new token...')
@@ -27,7 +31,7 @@ module HwfDwpApi
     end
 
     def get_token
-      log("[HwfDwpApi] Requesting token for client_id=#{@client_id}")
+      log('[HwfDwpApi] Requesting token...')
       token_response = HwfDwpApi::Endpoint.token(@client_id, @client_secret)
       @token = token_response.transform_keys(&:to_sym)
       set_expired_time
