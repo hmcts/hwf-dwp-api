@@ -53,7 +53,7 @@ RSpec.describe HwfDwpApi::Endpoint do
   end
 
   describe '.token' do
-    let(:token_url) { 'https://external-test.integr-dev.dwpcloud.uk:8443/citizens-information/oauth2/token' }
+    let(:token_url) { 'https://external-test.integr-dev.dwpcloud.uk:8443/citizen-information/oauth2/token' }
 
     context 'when request is successful' do
       before do
