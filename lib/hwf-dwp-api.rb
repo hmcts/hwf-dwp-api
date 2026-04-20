@@ -19,13 +19,13 @@ module HwfDwpApi
   # Mandatory attributes (loaded from ENV if not provided):
   # :client_id     - String (OAuth2 client ID)          - ENV: DWP_CLIENT_ID
   # :client_secret - String (OAuth2 client secret)      - ENV: DWP_CLIENT_SECRET
-  # :client_cert   - String (path to PEM client cert)   - ENV: DWP_CLIENT_CERT
-  # :client_key    - String (path to PEM client key)    - ENV: DWP_CLIENT_KEY
+  # :client_cert   - String (PEM text or path to file)   - ENV: DWP_CLIENT_CERT
+  # :client_key    - String (PEM text or path to file)   - ENV: DWP_CLIENT_KEY
   # :context       - String (source system identifier)  - ENV: DWP_CONTEXT
   # :policy_id     - String (matching policy ID)        - ENV: DWP_POLICY_ID
   #
   # Optional attributes:
-  # :ca_bundle     - String (path to CA bundle PEM)     - ENV: DWP_CA_BUNDLE
+  # :ca_bundle     - String (PEM text or path to file)   - ENV: DWP_CA_BUNDLE
   # :access_token  - String (cached access token)
   # :expires_in    - Time or String (token expiration, mandatory if access_token provided)
   def self.new(connection_attributes = {})

@@ -38,3 +38,6 @@ RSpec/MultipleExpectations:
 
 RSpec/DescribeMethod:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 8
