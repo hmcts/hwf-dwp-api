@@ -8,8 +8,52 @@ RSpec.describe HwfDwpApi::Endpoint do
     described_class.ca_bundle = nil
   end
 
+  describe 'mTLS options' do
+    context 'when credentials are PEM text' do
+      let(:cert_pem) { "-----BEGIN CERTIFICATE-----\nMIIB...\n-----END CERTIFICATE-----\n" }
+      let(:key_pem) { "-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----\n" }
+      let(:ca_pem) { "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----\n" }
+
+      before do
+        described_class.client_cert = cert_pem
+        described_class.client_key = key_pem
+        described_class.ca_bundle = ca_pem
+      end
+
+      it 'uses PEM text directly without reading files' do
+        options = described_class.send(:mtls_options)
+        expect(options[:pem]).to eq(cert_pem + key_pem)
+        expect(options[:ssl_ca_cert]).to eq(ca_pem)
+      end
+    end
+
+    context 'when credentials are file paths' do
+      let(:cert_path) { '/tmp/test-cert.pem' }
+      let(:key_path) { '/tmp/test-key.pem' }
+      let(:ca_path) { '/tmp/test-ca.pem' }
+      let(:cert_content) { "-----BEGIN CERTIFICATE-----\nfile-cert\n-----END CERTIFICATE-----\n" }
+      let(:key_content) { "-----BEGIN PRIVATE KEY-----\nfile-key\n-----END PRIVATE KEY-----\n" }
+      let(:ca_content) { "-----BEGIN CERTIFICATE-----\nfile-ca\n-----END CERTIFICATE-----\n" }
+
+      before do
+        described_class.client_cert = cert_path
+        described_class.client_key = key_path
+        described_class.ca_bundle = ca_path
+        allow(File).to receive(:read).with(cert_path).and_return(cert_content)
+        allow(File).to receive(:read).with(key_path).and_return(key_content)
+        allow(File).to receive(:read).with(ca_path).and_return(ca_content)
+      end
+
+      it 'reads PEM content from files' do
+        options = described_class.send(:mtls_options)
+        expect(options[:pem]).to eq(cert_content + key_content)
+        expect(options[:ssl_ca_cert]).to eq(ca_content)
+      end
+    end
+  end
+
   describe '.token' do
-    let(:token_url) { 'https://external-test.integr-dev.dwpcloud.uk:8443/citizens-information/oauth2/token' }
+    let(:token_url) { 'https://external-test.integr-dev.dwpcloud.uk:8443/citizen-information/oauth2/token' }
 
     context 'when request is successful' do
       before do

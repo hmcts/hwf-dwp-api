@@ -13,16 +13,30 @@ module HwfDwpApi
       prepare_token(connection_attributes)
     end
 
+    def inspect
+      "#<#{self.class} token=#{@access_token ? '[FILTERED]' : 'nil'} expires_in=#{@expires_in.inspect}>"
+    end
+
     def token
-      get_token if @token.nil? || expired?
+      if @token.nil?
+        log('[HwfDwpApi] No token present, requesting new token...')
+        get_token
+      elsif expired?
+        log("[HwfDwpApi] Token expired (expired at #{@expires_in}), requesting new token...")
+        get_token
+      else
+        log("[HwfDwpApi] Using existing token (expires at #{@expires_in})")
+      end
       access_token
     end
 
     def get_token
+      log('[HwfDwpApi] Requesting token...')
       token_response = HwfDwpApi::Endpoint.token(@client_id, @client_secret)
       @token = token_response.transform_keys(&:to_sym)
       set_expired_time
       load_access_token
+      log("[HwfDwpApi] Token received, expires at #{@expires_in}")
     end
 
     def expired?
@@ -32,7 +46,15 @@ module HwfDwpApi
 
     private
 
+    def log(message)
+      $stdout.puts message
+    end
+
     def configure_mtls(attributes)
+      cert = attributes[:client_cert] ? 'present' : 'nil'
+      key = attributes[:client_key] ? 'present' : 'nil'
+      ca = attributes[:ca_bundle] ? 'present' : 'nil'
+      log("[HwfDwpApi] Configuring mTLS (cert=#{cert}, key=#{key}, ca=#{ca})")
       HwfDwpApi::Endpoint.client_cert = attributes[:client_cert]
       HwfDwpApi::Endpoint.client_key = attributes[:client_key]
       HwfDwpApi::Endpoint.ca_bundle = attributes[:ca_bundle]
@@ -48,6 +70,7 @@ module HwfDwpApi
 
     def prepare_token(attributes)
       if attributes[:access_token]
+        log("[HwfDwpApi] Using cached token (expires at #{attributes[:expires_in]})")
         @access_token = attributes[:access_token]
         @expires_in = preformat_expires_in(attributes[:expires_in])
         @token = {

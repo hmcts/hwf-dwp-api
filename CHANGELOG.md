@@ -1,15 +1,23 @@
 # Changelog
 
-## [0.2.1] - 2026-04-16
+## [0.3.0] - 2026-04-20
 
 ### Fixed
 
+- Fixed OAuth token endpoint URL from `/citizens-information/` to `/citizen-information/` (singular)
 - Token auto-renewal now works correctly when token expires mid-session. `Connection#access_token` calls `Authentication#token` which checks expiry, instead of bypassing the check via the `access_token` attr_reader.
+
+### Added
+
+- Certificate values can now be passed as PEM text (from env vars/key vaults) or file paths. Detected automatically by the presence of `BEGIN` marker.
+- Authentication logging to stdout for mTLS configuration, token requests, renewals, and cached token usage
+- HTTParty debug output enabled via `DWP_DEBUG` environment variable
 
 ### Changed
 
 - Enabled `rubocop-rspec` plugin in RuboCop configuration
 - Disabled `SuggestExtensions` in RuboCop configuration
+- Updated `mcp` gem from 0.8.0 to 0.13.0 (CVE-2026-33946 fix)
 
 ## [0.2.0] - 2026-03-26
 

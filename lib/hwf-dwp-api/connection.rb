@@ -29,6 +29,10 @@ module HwfDwpApi
       @policy_id = connection_attributes[:policy_id]
     end
 
+    def inspect
+      "#<#{self.class} citizen_guid=#{@citizen_guid.inspect}>"
+    end
+
     def header_info(correlation_id)
       {
         access_token: access_token,

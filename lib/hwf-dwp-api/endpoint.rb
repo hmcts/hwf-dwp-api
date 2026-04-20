@@ -48,11 +48,20 @@ module HwfDwpApi
         ENV.fetch('DWP_API_URL', nil)
       end
 
+      def debug_output
+        ENV['DWP_DEBUG'] ? $stdout : nil
+      end
+
       def mtls_options
         options = {}
-        options[:pem] = File.read(@client_cert) + File.read(@client_key) if @client_cert && @client_key
-        options[:ssl_ca_file] = @ca_bundle if @ca_bundle
+        options[:pem] = resolve_pem(@client_cert) + resolve_pem(@client_key) if @client_cert && @client_key
+        options[:ssl_ca_cert] = resolve_pem(@ca_bundle) if @ca_bundle
+        options[:debug_output] = debug_output if debug_output
         options
+      end
+
+      def resolve_pem(value)
+        value&.include?('BEGIN') ? value : File.read(value)
       end
     end
   end
