@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.2] - 2026-04-21
+
+### Fixed
+
+- Blank, whitespace-only, and nil optional parameters (firstName, ninoFragment, postcode) are now excluded from the match citizen API request body, preventing DWP from treating empty strings as actual values
+
 ## [0.3.1] - 2026-04-21
 
 ### Fixed
