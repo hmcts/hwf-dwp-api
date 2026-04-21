@@ -76,6 +76,18 @@ RSpec.describe HwfDwpApi::Endpoint, 'match_citizen' do
                 }
               })
     end
+
+    it 'excludes blank optional params' do
+      blank_params = citizen_params.merge(first_name: '', nino_fragment: '  ', postcode: nil)
+      described_class.match_citizen(blank_params, header_info)
+      expect(WebMock).to have_requested(:post, match_url)
+        .with(body: {
+                data: {
+                  type: 'Match',
+                  attributes: { lastName: 'Doe', dateOfBirth: '1955-09-22' }
+                }
+              })
+    end
   end
 
   context 'when citizen is not found' do
