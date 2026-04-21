@@ -54,10 +54,19 @@ module HwfDwpApi
 
       def mtls_options
         options = {}
-        options[:pem] = resolve_pem(@client_cert) + resolve_pem(@client_key) if @client_cert && @client_key
-        options[:ssl_ca_cert] = resolve_pem(@ca_bundle) if @ca_bundle
+        options[:pem] = "#{resolve_pem(@client_cert)}\n#{resolve_pem(@client_key)}" if @client_cert && @client_key
+        options[:cert_store] = build_cert_store if @ca_bundle
         options[:debug_output] = debug_output if debug_output
         options
+      end
+
+      def build_cert_store
+        ca_pem = resolve_pem(@ca_bundle)
+        store = OpenSSL::X509::Store.new
+        ca_pem.scan(/-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----/m).each do |cert|
+          store.add_cert(OpenSSL::X509::Certificate.new(cert))
+        end
+        store
       end
 
       def resolve_pem(value)

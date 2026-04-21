@@ -9,11 +9,24 @@ RSpec.describe HwfDwpApi::Endpoint do
   end
 
   describe 'mTLS options' do
-    context 'when credentials are PEM text' do
-      let(:cert_pem) { "-----BEGIN CERTIFICATE-----\nMIIB...\n-----END CERTIFICATE-----\n" }
-      let(:key_pem) { "-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----\n" }
-      let(:ca_pem) { "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----\n" }
+    let(:test_key) { OpenSSL::PKey::RSA.new(2048) }
+    let(:test_cert) do
+      cert = OpenSSL::X509::Certificate.new
+      cert.version = 2
+      cert.serial = 1
+      cert.subject = OpenSSL::X509::Name.parse('/CN=test')
+      cert.issuer = cert.subject
+      cert.public_key = test_key.public_key
+      cert.not_before = Time.now
+      cert.not_after = Time.now + 3600
+      cert.sign(test_key, OpenSSL::Digest.new('SHA256'))
+      cert
+    end
+    let(:cert_pem) { test_cert.to_pem }
+    let(:key_pem) { test_key.to_pem }
+    let(:ca_pem) { test_cert.to_pem }
 
+    context 'when credentials are PEM text' do
       before do
         described_class.client_cert = cert_pem
         described_class.client_key = key_pem
@@ -22,8 +35,8 @@ RSpec.describe HwfDwpApi::Endpoint do
 
       it 'uses PEM text directly without reading files' do
         options = described_class.send(:mtls_options)
-        expect(options[:pem]).to eq(cert_pem + key_pem)
-        expect(options[:ssl_ca_cert]).to eq(ca_pem)
+        expect(options[:pem]).to eq("#{cert_pem}\n#{key_pem}")
+        expect(options[:cert_store]).to be_a(OpenSSL::X509::Store)
       end
     end
 
@@ -31,23 +44,20 @@ RSpec.describe HwfDwpApi::Endpoint do
       let(:cert_path) { '/tmp/test-cert.pem' }
       let(:key_path) { '/tmp/test-key.pem' }
       let(:ca_path) { '/tmp/test-ca.pem' }
-      let(:cert_content) { "-----BEGIN CERTIFICATE-----\nfile-cert\n-----END CERTIFICATE-----\n" }
-      let(:key_content) { "-----BEGIN PRIVATE KEY-----\nfile-key\n-----END PRIVATE KEY-----\n" }
-      let(:ca_content) { "-----BEGIN CERTIFICATE-----\nfile-ca\n-----END CERTIFICATE-----\n" }
 
       before do
         described_class.client_cert = cert_path
         described_class.client_key = key_path
         described_class.ca_bundle = ca_path
-        allow(File).to receive(:read).with(cert_path).and_return(cert_content)
-        allow(File).to receive(:read).with(key_path).and_return(key_content)
-        allow(File).to receive(:read).with(ca_path).and_return(ca_content)
+        allow(File).to receive(:read).with(cert_path).and_return(cert_pem)
+        allow(File).to receive(:read).with(key_path).and_return(key_pem)
+        allow(File).to receive(:read).with(ca_path).and_return(ca_pem)
       end
 
       it 'reads PEM content from files' do
         options = described_class.send(:mtls_options)
-        expect(options[:pem]).to eq(cert_content + key_content)
-        expect(options[:ssl_ca_cert]).to eq(ca_content)
+        expect(options[:pem]).to eq("#{cert_pem}\n#{key_pem}")
+        expect(options[:cert_store]).to be_a(OpenSSL::X509::Store)
       end
     end
   end
