@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.1] - 2026-04-21
+
+### Fixed
+
+- Fixed CA bundle handling: replaced invalid `ssl_ca_cert` HTTParty option with `cert_store` (OpenSSL::X509::Store), resolving certificate verification errors when using the gem
+- Added newline separator between client cert and key in PEM concatenation
+- Removed sensitive data (client_id) from authentication log output
+- Added `inspect` methods to `Connection` and `Authentication` to prevent certificate/secret leakage in console output
+
 ## [0.3.0] - 2026-04-20
 
 ### Fixed
