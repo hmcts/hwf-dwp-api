@@ -25,9 +25,9 @@ module HwfDwpApi
           lastName: citizen_params[:last_name],
           dateOfBirth: citizen_params[:date_of_birth]
         }
-        attributes[:firstName] = citizen_params[:first_name] if citizen_params[:first_name]
-        attributes[:ninoFragment] = citizen_params[:nino_fragment] if citizen_params[:nino_fragment]
-        attributes[:postcode] = citizen_params[:postcode] if citizen_params[:postcode]
+        attributes[:firstName] = citizen_params[:first_name] unless blank?(citizen_params[:first_name])
+        attributes[:ninoFragment] = citizen_params[:nino_fragment] unless blank?(citizen_params[:nino_fragment])
+        attributes[:postcode] = citizen_params[:postcode] unless blank?(citizen_params[:postcode])
 
         {
           data: {
@@ -35,6 +35,10 @@ module HwfDwpApi
             attributes: attributes
           }
         }
+      end
+
+      def blank?(value)
+        value.nil? || value.to_s.strip.empty?
       end
 
       def process_match_response
