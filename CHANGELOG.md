@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.3] - 2026-04-22
+
+### Added
+
+- Surface HTTP 429 responses from the DWP Citizen API as a distinct `:rate_limited` error type across all four endpoints (`match_citizen`, `claims`, `citizen`, `token`), so downstream consumers can distinguish rate-limit errors from generic failures. The raw JSON response body is preserved as the error message.
+
 ## [0.3.2] - 2026-04-21
 
 ### Fixed

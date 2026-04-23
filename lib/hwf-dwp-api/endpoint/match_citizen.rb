@@ -59,7 +59,8 @@ module HwfDwpApi
           400 => [response_hash.to_json, :bad_request],
           404 => [response_hash.to_json, :not_found],
           422 => [response_hash.to_json, :unprocessable],
-          401 => [response_hash.to_json, :invalid_token]
+          401 => [response_hash.to_json, :invalid_token],
+          429 => [response_hash.to_json, :rate_limited]
         }.fetch(@response.code, [response_hash.to_json, :standard_error])
       end
 

@@ -32,6 +32,7 @@ module HwfDwpApi
         error_type = case @response.code
                      when 401 then :invalid_client
                      when 400 then :"#{error_code}"
+                     when 429 then :rate_limited
                      else :token_error
                      end
 

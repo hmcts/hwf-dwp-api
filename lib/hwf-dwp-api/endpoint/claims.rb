@@ -39,7 +39,8 @@ module HwfDwpApi
         error_type = {
           400 => :bad_request,
           404 => :not_found,
-          401 => :invalid_token
+          401 => :invalid_token,
+          429 => :rate_limited
         }.fetch(@response.code, :standard_error)
 
         raise HwfDwpApiTokenError.new(message, error_type) if @response.code == 401
