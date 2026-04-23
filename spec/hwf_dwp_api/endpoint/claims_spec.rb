@@ -138,6 +138,30 @@ RSpec.describe HwfDwpApi::Endpoint, 'claims' do
     end
   end
 
+  context 'when rate limit is exceeded' do
+    before do
+      stub_request(:get, claims_url)
+        .to_return(
+          status: 429,
+          body: {
+            errors: [{ status: '429', title: 'Too Many Requests',
+                       detail: 'API rate limit exceeded' }]
+          }.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+    end
+
+    it 'raises HwfDwpApiError with rate_limited type and raw JSON message' do
+      expect do
+        described_class.claims(guid, header_info)
+      end.to raise_error(HwfDwpApiError) { |error|
+        expect(error.error_type).to eq(:rate_limited)
+        parsed = JSON.parse(error.message)
+        expect(parsed.dig('errors', 0, 'detail')).to eq('API rate limit exceeded')
+      }
+    end
+  end
+
   context 'when token is expired' do
     before do
       stub_request(:get, claims_url)
