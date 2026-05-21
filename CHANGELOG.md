@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.4] - 2026-05-21
+
+### Added
+
+- Surface additional HTTP error responses from the DWP Citizen API as distinct error types across the `match_citizen`, `claims`, and `citizen` endpoints: `403 Forbidden` (`:forbidden`), `405 Method Not Allowed` (`:method_not_allowed`), `412 Precondition Failed` (`:precondition_failed`), and `503 Service Unavailable` (`:service_unavailable`). Previously these fell through to the generic `:standard_error` type. The raw JSON response body is preserved as the error message.
+
 ## [0.3.3] - 2026-04-22
 
 ### Added
