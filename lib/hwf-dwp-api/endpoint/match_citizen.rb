@@ -57,10 +57,14 @@ module HwfDwpApi
       def match_error_details
         {
           400 => [response_hash.to_json, :bad_request],
-          404 => [response_hash.to_json, :not_found],
-          422 => [response_hash.to_json, :unprocessable],
           401 => [response_hash.to_json, :invalid_token],
-          429 => [response_hash.to_json, :rate_limited]
+          403 => [response_hash.to_json, :forbidden],
+          404 => [response_hash.to_json, :not_found],
+          405 => [response_hash.to_json, :method_not_allowed],
+          412 => [response_hash.to_json, :precondition_failed],
+          422 => [response_hash.to_json, :unprocessable],
+          429 => [response_hash.to_json, :rate_limited],
+          503 => [response_hash.to_json, :service_unavailable]
         }.fetch(@response.code, [response_hash.to_json, :standard_error])
       end
 
