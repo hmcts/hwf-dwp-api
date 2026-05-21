@@ -223,4 +223,28 @@ RSpec.describe HwfDwpApi::Endpoint, 'match_citizen' do
       }
     end
   end
+
+  context 'when the API returns other documented error statuses' do
+    {
+      403 => :forbidden,
+      405 => :method_not_allowed,
+      412 => :precondition_failed,
+      503 => :service_unavailable
+    }.each do |status, error_type|
+      it "maps HTTP #{status} to #{error_type}" do
+        stub_request(:post, match_url)
+          .to_return(
+            status: status,
+            body: { errors: [{ status: status.to_s, title: 'Error' }] }.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+
+        expect do
+          described_class.match_citizen(citizen_params, header_info)
+        end.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(error_type)
+        }
+      end
+    end
+  end
 end

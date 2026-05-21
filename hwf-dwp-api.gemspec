@@ -10,13 +10,13 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Link between HwF and DWP Citizen API.'
   spec.description   = 'Basic logic to communicate and parse data to/from DWP Citizen API for benefit checks.'
-  spec.homepage      = 'https://github.com/hmcts/hwf_dwp_api'
+  spec.homepage      = 'https://github.com/hmcts/hwf-dwp-api'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 4.0.0')
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/hmcts/hwf_dwp_api'
-  spec.metadata['changelog_uri'] = 'https://github.com/hmcts/hwf_dwp_api/blob/main/CHANGELOG.md'
+  spec.metadata['source_code_uri'] = 'https://github.com/hmcts/hwf-dwp-api'
+  spec.metadata['changelog_uri'] = 'https://github.com/hmcts/hwf-dwp-api/blob/main/CHANGELOG.md'
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{\A(?:test|spec|features)/}) }
