@@ -99,9 +99,7 @@ citizen = connection.get_citizen
 citizen = connection.get_citizen("abc123...")
 
 # Access citizen data
-citizen.dig("data", "attributes", "nino")               # => "CD345678A"
-citizen.dig("data", "attributes", "name", "firstName")   # => "John"
-citizen.dig("data", "attributes", "dateOfBirth", "date") # => "1955-09-22"
+citizen.dig("data", "attributes", "dateOfDeath", "date") # => "2005-09-22"
 ```
 
 ### Get claims
