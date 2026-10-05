@@ -30,6 +30,7 @@ cp .env.example .env
 | `DWP_CONTEXT` | Yes | Provisioned source system identifier (e.g. `hmcts-hwf`) |
 | `DWP_POLICY_ID` | Yes | Agreed matching policy ID (e.g. `hwf-policy`) |
 | `DWP_CA_BUNDLE` | No | Path to CA bundle PEM for mTLS certificate validation |
+| `DWP_API_CONNECTION` | No | `mock_dwp` answers from test citizens instead of calling DWP (see [Mock connection](#mock-connection)). Any other value, or none, uses the real connection |
 
 All attributes can also be passed directly to `HwfDwpApi.new`, which takes precedence over ENV values.
 
@@ -179,6 +180,18 @@ rescue HwfDwpApiError => e
   end
 end
 ```
+
+## Mock connection
+
+Set `DWP_API_CONNECTION=mock_dwp` to test scenarios without calling DWP. The gem is used exactly as with a real connection; every HTTP call is answered from the test citizens in `lib/hwf-dwp-api/mock/citizens` instead, and the usual response and error handling still runs. Any other value, or none, uses the real connection.
+
+- None of the `DWP_*` connection variables are needed; a fake token is issued.
+- A warning is logged each time a connection is created, and every guid starts with `mock-dwp-`.
+- `match_citizen` needs the last name and date of birth of a test citizen. First name, NI number fragment and postcode are checked when both sides have them. No match raises `:not_found`; more than one raises `:unprocessable`.
+- `get_claims` returns the citizen's claims that were live inside the date window, or only open claims when no window is given. No claims raises `:not_found`.
+- Rate limiting is not mocked.
+
+To add a scenario, add a YAML file to `lib/hwf-dwp-api/mock/citizens` with a unique `internal_id`. Never set `mock_dwp` in production.
 
 ## Development
 

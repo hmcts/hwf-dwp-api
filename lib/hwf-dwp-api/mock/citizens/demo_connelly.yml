@@ -1,0 +1,32 @@
+# DWP Demo (sandbox) user, copied from DWP/API test users/connely.json — see CHANGELOG.md
+citizen:
+  internal_id: "demo_connelly"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Connelly"
+    dateOfBirth: "1992-12-03"
+    firstName: "Andrew"
+    postcode: "G33 1GH"
+  details:
+    name:
+      firstName: "Andrew"
+      lastName: "Connelly"
+      metadata:
+        verificationType: "authoritative"
+    dateOfBirth:
+      date: "1992-12-03"
+      metadata:
+        verificationType: "authoritative"
+  claims:
+    - id: "85"
+      benefitType: "employment_support_allowance_income_based"
+      startDate: "2021-01-01"
+      awards:
+        - isJointClaim: false
+          amount: 8500
+          startDate: "2021-01-01"
+          status: "live"
+          awardComponents:
+            - type: "other"
+              subType: "total_ib"
+              componentAwardAmount: 8500

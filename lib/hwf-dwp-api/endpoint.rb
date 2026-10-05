@@ -31,6 +31,13 @@ module HwfDwpApi
         }
       end
 
+      # Every call to DWP goes through here, so the mock connection can answer instead
+      def http_request(method, path, options = {})
+        return HwfDwpApi::Mock::Responder.call(path, options) if HwfDwpApi.mock_connection?
+
+        HTTParty.public_send(method, "#{api_url}#{path}", **options, **mtls_options)
+      end
+
       def response_hash
         JSON.parse(@response.to_s)
       end

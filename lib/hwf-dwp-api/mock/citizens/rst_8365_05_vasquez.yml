@@ -1,0 +1,72 @@
+# RST-8365 example 5 (row 14, scenario 2) — expected benefit checker response: No. See README
+citizen:
+  internal_id: "rst_8365_05"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Vasquez"
+    dateOfBirth: "1989-09-30"
+    firstName: "Erin"
+    ninoFragment: "6505"
+    nino: "JC836505A"
+    postcode: "NE1 7RU"
+    contactDetails:
+      - "07700900805"
+  details:
+    nino: "JC836505A"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Erin"
+      lastName: "Vasquez"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1989-09-30"
+    dateOfBirth:
+      date: "1989-09-30"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900805"
+        preferredContactIndicator: true
+  # UC claim as example 1 but payments suspended. Suspension is set on the claim
+  # status, the award type, each component and the payment status.
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-06-01"
+      endDate: "2026-06-30"
+      claimDate: "2026-05-25"
+      receiptDate: "2026-05-25"
+      entitlementStartDate: "2026-06-01"
+      periodicity: "calendar_monthly"
+      status: "suspended"
+      awards:
+        - startDate: "2026-06-01"
+          endDate: "2026-06-30"
+          status: "live"
+          amount: 74500
+          awardType: "suspension"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 41050
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+              isPaymentSuspended: true
+            - type: "care"
+              subType: "housing_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 35199
+              isPaymentSuspended: true
+      paymentStatus:
+        - type: "suspended"
+          startDate: "2026-06-01"
+          endDate: "2026-06-30"

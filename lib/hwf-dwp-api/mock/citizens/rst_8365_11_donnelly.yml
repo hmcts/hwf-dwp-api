@@ -1,0 +1,93 @@
+# RST-8365 example 11 (rows 21-22, scenario 5) — expected benefit checker response: Yes. See README
+citizen:
+  internal_id: "rst_8365_11"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Donnelly"
+    dateOfBirth: "1992-10-21"
+    firstName: "Keira"
+    ninoFragment: "6511"
+    nino: "JC836511C"
+    postcode: "G2 3BZ"
+    contactDetails:
+      - "07700900811"
+  details:
+    nino: "JC836511C"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Keira"
+      lastName: "Donnelly"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1992-10-21"
+    dateOfBirth:
+      date: "1992-10-21"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900811"
+        preferredContactIndicator: true
+  # Two claims, in the spreadsheet's order: UC 2026-06-01 to 2026-06-15 (not
+  # active), then JSA (income based) from 2026-06-16 (active, passes as example 6).
+  # The failing claim comes first.
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-06-01"
+      endDate: "2026-06-15"
+      claimDate: "2026-05-25"
+      receiptDate: "2026-05-25"
+      entitlementStartDate: "2026-06-01"
+      endReason: "no_longer_wishes_to_claim"
+      periodicity: "calendar_monthly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2026-06-01"
+          endDate: "2026-06-15"
+          status: "superseded"
+          amount: 74500
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 41050
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+            - type: "care"
+              subType: "housing_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 35199
+      paymentStatus:
+        - type: "entitlement_terminated"
+          startDate: "2026-06-01"
+          endDate: "2026-06-15"
+    - benefitType: "job_seekers_allowance_income_based"
+      startDate: "2026-06-16"
+      claimDate: "2026-06-09"
+      receiptDate: "2026-06-09"
+      entitlementStartDate: "2026-06-16"
+      periodicity: "fortnightly"
+      status: "active"
+      awards:
+        - startDate: "2026-06-16"
+          status: "live"
+          amount: 210000
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 210000
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-06-16"

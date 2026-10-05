@@ -4,11 +4,11 @@ module HwfDwpApi
   module Endpoint
     module Claims
       def claims(guid, header_info, filters = {})
-        @response = HTTParty.get(
-          "#{api_url}/capi/v2/citizens/#{guid}/claims",
+        @response = http_request(
+          :get,
+          "/capi/v2/citizens/#{guid}/claims",
           headers: request_headers(header_info),
-          query: claims_query_params(filters),
-          **mtls_options
+          query: claims_query_params(filters)
         )
 
         process_claims_response

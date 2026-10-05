@@ -1,0 +1,46 @@
+# DWP Demo (sandbox) user, copied from DWP/API test users/edwards.json — see CHANGELOG.md
+citizen:
+  internal_id: "demo_edwards"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Edwards"
+    dateOfBirth: "1943-05-02"
+    firstName: "Richard"
+    postcode: "L70 JQ"
+  details:
+    name:
+      firstName: "Richard"
+      lastName: "Edwards"
+      metadata:
+        verificationType: "authoritative"
+    dateOfBirth:
+      date: "1943-05-02"
+      metadata:
+        verificationType: "authoritative"
+  claims:
+    - id: "670"
+      benefitType: "universal_credit"
+      startDate: "2025-10-18"
+      status: "suspended"
+      awards:
+        - isJointClaim: false
+          amount: 218744
+          startDate: "2025-10-18"
+          endDate: "2025-11-19"
+          status: "live"
+          awardType: "fixed_period"
+          assessmentAttributes:
+            takeHomePay: 10000
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 40014
+            - type: "other"
+              subType: "child_element"
+              componentAwardAmount: 58562
+            - type: "other"
+              subType: "housing_element"
+              componentAwardAmount: 100000
+            - type: "other"
+              subType: "carer_element"
+              componentAwardAmount: 20168

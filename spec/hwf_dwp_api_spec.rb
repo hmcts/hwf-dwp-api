@@ -108,4 +108,34 @@ RSpec.describe HwfDwpApi do
       end
     end
   end
+
+  # The mock connection itself is covered in spec/hwf_dwp_api/mock_connection_spec.rb
+  describe '.mock_connection?' do
+    around do |example|
+      original = ENV.fetch('DWP_API_CONNECTION', nil)
+      example.run
+    ensure
+      original ? ENV['DWP_API_CONNECTION'] = original : ENV.delete('DWP_API_CONNECTION')
+    end
+
+    it 'is false when DWP_API_CONNECTION is not set' do
+      ENV.delete('DWP_API_CONNECTION')
+      expect(described_class.mock_connection?).to be false
+    end
+
+    it 'is false when DWP_API_CONNECTION is real_connection' do
+      ENV['DWP_API_CONNECTION'] = 'real_connection'
+      expect(described_class.mock_connection?).to be false
+    end
+
+    it 'is true when DWP_API_CONNECTION is mock_dwp' do
+      ENV['DWP_API_CONNECTION'] = 'mock_dwp'
+      expect(described_class.mock_connection?).to be true
+    end
+
+    it 'still validates the credentials of a real connection' do
+      ENV['DWP_API_CONNECTION'] = 'real_connection'
+      expect { described_class.new(client_id: '') }.to raise_error(HwfDwpApiError, /CLIENT ID is missing/)
+    end
+  end
 end

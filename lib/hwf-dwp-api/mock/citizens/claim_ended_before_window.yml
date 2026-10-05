@@ -1,0 +1,65 @@
+citizen:
+  internal_id: "citizen_013"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Shah"
+    dateOfBirth: "1993-05-27"
+    firstName: "Priya"
+    ninoFragment: "4466"
+    nino: "JC334466C"
+    postcode: "LE1 6TP"
+    contactDetails:
+      - "07700900334"
+  details:
+    nino: "JC334466C"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Priya"
+      lastName: "Shah"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1993-05-27"
+    dateOfBirth:
+      date: "1993-05-27"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900334"
+        preferredContactIndicator: true
+  # Income Support claim that closed on 2026-08-21: inside the staff app's
+  # window for application dates up to 2026-09-27, before it from 2026-09-28
+  # — see README
+  claims:
+    - benefitType: "income_support"
+      startDate: "2025-05-01"
+      endDate: "2026-08-21"
+      claimDate: "2025-04-21"
+      receiptDate: "2025-04-21"
+      entitlementStartDate: "2025-05-01"
+      endReason: "no_longer_wishes_to_claim"
+      periodicity: "fortnightly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2025-05-01"
+          endDate: "2026-08-21"
+          status: "superseded"
+          amount: 84680
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 84680
+      paymentStatus:
+        - type: "entitlement_terminated"
+          startDate: "2025-05-01"
+          endDate: "2026-08-21"

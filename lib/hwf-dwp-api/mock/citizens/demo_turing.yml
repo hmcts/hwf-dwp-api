@@ -1,0 +1,127 @@
+# DWP Demo (sandbox) user, copied from DWP/API test users/turing.json — see CHANGELOG.md
+citizen:
+  internal_id: "demo_turing"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Turing"
+    dateOfBirth: "2000-03-01"
+    firstName: "Aly"
+    postcode: "PH1 1BD"
+  details:
+    name:
+      firstName: "Aly"
+      lastName: "Turing"
+      metadata:
+        verificationType: "authoritative"
+    dateOfBirth:
+      date: "2000-03-01"
+      metadata:
+        verificationType: "authoritative"
+  claims:
+    - id: "670"
+      benefitType: "universal_credit"
+      startDate: "2022-10-28"
+      status: "in_payment"
+      awards:
+        - isJointClaim: false
+          amount: 89019
+          startDate: "2023-03-28"
+          endDate: "2023-04-27"
+          status: "live"
+          awardType: "fixed_period"
+          assessmentAttributes:
+            takeHomePay: 90000
+            awardPaymentAdjustments:
+              - adjustmentCategory: "advance_repayment"
+                adjustmentAmount: 100
+              - adjustmentCategory: "other_dwp_debt"
+                adjustmentAmount: 200
+              - adjustmentCategory: "rent_arrears"
+                adjustmentAmount: 300
+              - adjustmentCategory: "third_party_deductions"
+                adjustmentAmount: 400
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 32484
+            - type: "other"
+              subType: "child_element"
+              componentAwardAmount: 47416
+            - type: "other"
+              subType: "childcare_element"
+              componentAwardAmount: 9119
+        - isJointClaim: false
+          amount: 80226
+          startDate: "2023-04-28"
+          endDate: "2023-05-27"
+          status: "live"
+          awardType: "fixed_period"
+          assessmentAttributes:
+            takeHomePay: 0
+            awardPaymentAdjustments:
+              - adjustmentCategory: "advance_repayment"
+                adjustmentAmount: 100
+              - adjustmentCategory: "other_dwp_debt"
+                adjustmentAmount: 200
+              - adjustmentCategory: "rent_arrears"
+                adjustmentAmount: 300
+              - adjustmentCategory: "third_party_deductions"
+                adjustmentAmount: 400
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 32484
+            - type: "other"
+              subType: "child_element"
+              componentAwardAmount: 47416
+            - type: "other"
+              subType: "childcare_element"
+              componentAwardAmount: 326
+        - isJointClaim: false
+          amount: 82407
+          startDate: "2023-08-28"
+          endDate: "2023-09-27"
+          status: "live"
+          awardType: "fixed_period"
+          assessmentAttributes:
+            takeHomePay: 90000
+            awardPaymentAdjustments:
+              - adjustmentCategory: "advance_repayment"
+                adjustmentAmount: 100
+              - adjustmentCategory: "other_dwp_debt"
+                adjustmentAmount: 200
+              - adjustmentCategory: "rent_arrears"
+                adjustmentAmount: 300
+              - adjustmentCategory: "third_party_deductions"
+                adjustmentAmount: 400
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 33491
+            - type: "other"
+              subType: "child_element"
+              componentAwardAmount: 48916
+        - isJointClaim: false
+          amount: 82407
+          startDate: "2023-09-28"
+          endDate: "2023-10-27"
+          status: "live"
+          awardType: "fixed_period"
+          assessmentAttributes:
+            takeHomePay: 0
+            awardPaymentAdjustments:
+              - adjustmentCategory: "advance_repayment"
+                adjustmentAmount: 100
+              - adjustmentCategory: "other_dwp_debt"
+                adjustmentAmount: 200
+              - adjustmentCategory: "rent_arrears"
+                adjustmentAmount: 300
+              - adjustmentCategory: "third_party_deductions"
+                adjustmentAmount: 400
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 33491
+            - type: "other"
+              subType: "child_element"
+              componentAwardAmount: 48916

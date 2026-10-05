@@ -1,0 +1,62 @@
+citizen:
+  internal_id: "citizen_011"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Foster"
+    dateOfBirth: "1987-03-12"
+    firstName: "Hannah"
+    ninoFragment: "2233"
+    nino: "JC112233A"
+    postcode: "BS1 4DJ"
+    contactDetails:
+      - "07700900112"
+  details:
+    nino: "JC112233A"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Hannah"
+      lastName: "Foster"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1987-03-12"
+    dateOfBirth:
+      date: "1987-03-12"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900112"
+        preferredContactIndicator: true
+  # UC claim that started on 2026-09-14 and is still in payment. A date window
+  # ending before the start date gets 404 — see README
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-09-14"
+      claimDate: "2026-09-07"
+      receiptDate: "2026-09-07"
+      entitlementStartDate: "2026-09-14"
+      periodicity: "calendar_monthly"
+      status: "in_payment"
+      awards:
+        - startDate: "2026-09-14"
+          status: "live"
+          amount: 39301
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 0
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-09-14"

@@ -1,0 +1,34 @@
+# DWP Demo (sandbox) user, copied from DWP/API test users/leeks.json — see CHANGELOG.md
+citizen:
+  internal_id: "demo_leeks"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Leeks"
+    dateOfBirth: "1956-04-26"
+    firstName: "Lisa"
+    postcode: "PO9 5TG"
+  details:
+    name:
+      firstName: "Lisa"
+      lastName: "Leeks"
+      metadata:
+        verificationType: "authoritative"
+    dateOfBirth:
+      date: "1956-04-26"
+      metadata:
+        verificationType: "authoritative"
+  claims:
+    - id: "80"
+      benefitType: "pensions_credit"
+      startDate: "2024-08-23"
+      status: "decision_entitled"
+      awards:
+        - isJointClaim: false
+          amount: 8654
+          startDate: "2024-08-23"
+          status: "cacs_decision_hist"
+          awardType: "other"
+          awardComponents:
+            - type: "other"
+              subType: "total_c"
+              componentAwardAmount: 8654

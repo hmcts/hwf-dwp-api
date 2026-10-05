@@ -4,15 +4,15 @@ module HwfDwpApi
   module Endpoint
     module Token
       def token(client_id, client_secret)
-        @response = HTTParty.post(
-          "#{api_url}/citizen-information/oauth2/token",
+        @response = http_request(
+          :post,
+          '/citizen-information/oauth2/token',
           headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
           body: {
             client_id: client_id,
             client_secret: client_secret,
             grant_type: 'client_credentials'
-          },
-          **mtls_options
+          }
         )
 
         process_token_response

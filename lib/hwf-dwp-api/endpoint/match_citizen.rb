@@ -4,11 +4,11 @@ module HwfDwpApi
   module Endpoint
     module MatchCitizen
       def match_citizen(citizen_params, header_info)
-        @response = HTTParty.post(
-          "#{api_url}/capi/v2/citizens/match",
+        @response = http_request(
+          :post,
+          '/capi/v2/citizens/match',
           headers: request_headers(header_info),
-          body: match_request_body(citizen_params).to_json,
-          **mtls_options
+          body: match_request_body(citizen_params).to_json
         )
 
         process_match_response

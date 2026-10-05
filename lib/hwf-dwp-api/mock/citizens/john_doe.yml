@@ -1,0 +1,58 @@
+citizen:
+  internal_id: "citizen_003"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Doe"
+    dateOfBirth: "1955-09-22"
+    firstName: "John"
+    ninoFragment: "3456"
+    nino: "CD345678A"
+    postcode: "M1 1AA"
+    contactDetails:
+      - "01onal234567"
+  details:
+    nino: "CD345678A"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "John"
+      lastName: "Doe"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1955-09-22"
+    dateOfBirth:
+      date: "1955-09-22"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "home_telephone_number"
+        value: "01onal234567"
+        preferredContactIndicator: true
+  claims:
+    - benefitType: "pensions_credit"
+      startDate: "2021-10-01"
+      claimDate: "2021-09-15"
+      receiptDate: "2021-09-15"
+      entitlementStartDate: "2021-10-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2025-04-01"
+          status: "live"
+          amount: 21856
+          awardType: "fixed_period"
+          isJointClaim: true
+          awardComponents:
+            - type: "care"
+              subType: "guarantee_credit"
+              componentRate: "standard_rate"
+              componentAwardAmount: 21856
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2021-10-01"
