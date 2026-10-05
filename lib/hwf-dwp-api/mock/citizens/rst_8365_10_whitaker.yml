@@ -1,0 +1,92 @@
+# RST-8365 example 10 (rows 19-20, scenario 5) — expected benefit checker response: Yes. See README
+citizen:
+  internal_id: "rst_8365_10"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Whitaker"
+    dateOfBirth: "1987-08-05"
+    firstName: "Jamal"
+    ninoFragment: "6510"
+    nino: "JC836510B"
+    postcode: "SO14 7DW"
+    contactDetails:
+      - "07700900810"
+  details:
+    nino: "JC836510B"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Jamal"
+      lastName: "Whitaker"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1987-08-05"
+    dateOfBirth:
+      date: "1987-08-05"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900810"
+        preferredContactIndicator: true
+  # Two claims, in the spreadsheet's order: UC from 2026-06-16 (active, passes as
+  # example 1), then Income Support 2026-06-01 to 2026-06-15 (not active).
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-06-16"
+      claimDate: "2026-06-09"
+      receiptDate: "2026-06-09"
+      entitlementStartDate: "2026-06-16"
+      periodicity: "calendar_monthly"
+      status: "active"
+      awards:
+        - startDate: "2026-06-16"
+          status: "live"
+          amount: 74500
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 41050
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+            - type: "care"
+              subType: "housing_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 35199
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-06-16"
+    - benefitType: "income_support"
+      startDate: "2026-06-01"
+      endDate: "2026-06-15"
+      claimDate: "2026-05-25"
+      receiptDate: "2026-05-25"
+      entitlementStartDate: "2026-06-01"
+      endReason: "claimed_universal_credit"
+      periodicity: "fortnightly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2026-06-01"
+          endDate: "2026-06-15"
+          status: "superseded"
+          amount: 84680
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 84680
+      paymentStatus:
+        - type: "entitlement_terminated"
+          startDate: "2026-06-01"
+          endDate: "2026-06-15"

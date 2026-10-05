@@ -1,0 +1,60 @@
+# RST-8365 example 6 (row 15, scenario 3) — expected benefit checker response: Yes. See README
+citizen:
+  internal_id: "rst_8365_06"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Rahman"
+    dateOfBirth: "1982-01-26"
+    firstName: "Farid"
+    ninoFragment: "6506"
+    nino: "JC836506B"
+    postcode: "BD1 1HY"
+    contactDetails:
+      - "07700900806"
+  details:
+    nino: "JC836506B"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Farid"
+      lastName: "Rahman"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1982-01-26"
+    dateOfBirth:
+      date: "1982-01-26"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900806"
+        preferredContactIndicator: true
+  # JSA (income based) from 2026-03-01, no end date, active, amount 210000.
+  claims:
+    - benefitType: "job_seekers_allowance_income_based"
+      startDate: "2026-03-01"
+      claimDate: "2026-02-23"
+      receiptDate: "2026-02-23"
+      entitlementStartDate: "2026-03-01"
+      periodicity: "fortnightly"
+      status: "active"
+      awards:
+        - startDate: "2026-03-01"
+          status: "live"
+          amount: 210000
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 210000
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-03-01"

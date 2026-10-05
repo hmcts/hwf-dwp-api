@@ -2,6 +2,7 @@
 
 require_relative 'hwf-dwp-api/connection'
 require_relative 'hwf-dwp-api/connection_attribute_validation'
+require_relative 'hwf-dwp-api/mock'
 
 module HwfDwpApi
   ENV_MAPPING = {
@@ -13,6 +14,7 @@ module HwfDwpApi
     policy_id: 'DWP_POLICY_ID',
     ca_bundle: 'DWP_CA_BUNDLE'
   }.freeze
+  MOCK_CONNECTION = 'mock_dwp'
 
   extend ConnectionAttributeValidation
 
@@ -28,10 +30,22 @@ module HwfDwpApi
   # :ca_bundle     - String (PEM text or path to file)   - ENV: DWP_CA_BUNDLE
   # :access_token  - String (cached access token)
   # :expires_in    - Time or String (token expiration, mandatory if access_token provided)
+  #
+  # DWP_API_CONNECTION=mock_dwp answers from test citizens instead of calling
+  # DWP, and needs none of the attributes above. Any other value, or none,
+  # uses the real connection.
   def self.new(connection_attributes = {})
     attributes = attributes_from_env.merge(connection_attributes)
-    validate_mandatory_attributes(attributes)
+    mock_connection? ? warn_mock_connection : validate_mandatory_attributes(attributes)
     HwfDwpApi::Connection.new(attributes)
+  end
+
+  def self.mock_connection?
+    ENV.fetch('DWP_API_CONNECTION', nil) == MOCK_CONNECTION
+  end
+
+  def self.warn_mock_connection
+    $stdout.puts "[HwfDwpApi] DWP_API_CONNECTION=#{MOCK_CONNECTION}: answering from test citizens, DWP is not called"
   end
 
   def self.attributes_from_env
@@ -41,5 +55,5 @@ module HwfDwpApi
     end
   end
 
-  private_class_method :attributes_from_env
+  private_class_method :attributes_from_env, :warn_mock_connection
 end

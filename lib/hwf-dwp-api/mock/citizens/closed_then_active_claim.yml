@@ -1,0 +1,88 @@
+citizen:
+  internal_id: "citizen_014"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Bennett"
+    dateOfBirth: "1984-08-19"
+    firstName: "Tom"
+    ninoFragment: "5577"
+    nino: "JC445577D"
+    postcode: "S1 2HE"
+    contactDetails:
+      - "07700900445"
+  details:
+    nino: "JC445577D"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Tom"
+      lastName: "Bennett"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1984-08-19"
+    dateOfBirth:
+      date: "1984-08-19"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900445"
+        preferredContactIndicator: true
+  # Moved from Income Support (closed 2026-09-10) to UC (started 2026-09-11).
+  # A window covering both returns the closed claim first, the active one
+  # second — see README
+  claims:
+    - benefitType: "income_support"
+      startDate: "2025-02-03"
+      endDate: "2026-09-10"
+      claimDate: "2025-01-24"
+      receiptDate: "2025-01-24"
+      entitlementStartDate: "2025-02-03"
+      endReason: "claimed_universal_credit"
+      periodicity: "fortnightly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2025-02-03"
+          endDate: "2026-09-10"
+          status: "superseded"
+          amount: 84680
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 84680
+      paymentStatus:
+        - type: "entitlement_terminated"
+          startDate: "2025-02-03"
+          endDate: "2026-09-10"
+    - benefitType: "universal_credit"
+      startDate: "2026-09-11"
+      claimDate: "2026-09-04"
+      receiptDate: "2026-09-04"
+      entitlementStartDate: "2026-09-11"
+      periodicity: "calendar_monthly"
+      status: "in_payment"
+      awards:
+        - startDate: "2026-09-11"
+          status: "live"
+          amount: 39301
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 0
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-09-11"

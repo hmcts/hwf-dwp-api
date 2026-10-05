@@ -1,0 +1,58 @@
+citizen:
+  internal_id: "citizen_004"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Williams"
+    dateOfBirth: "1978-12-03"
+    firstName: "Sarah"
+    ninoFragment: "9012"
+    nino: "EF901234B"
+    postcode: "LS1 1BA"
+    contactDetails:
+      - "07700900456"
+  details:
+    nino: "EF901234B"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Sarah"
+      lastName: "Williams"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1978-12-03"
+    dateOfBirth:
+      date: "1978-12-03"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900456"
+        preferredContactIndicator: true
+  claims:
+    - benefitType: "employment_support_allowance_income_based"
+      startDate: "2022-07-15"
+      claimDate: "2022-07-01"
+      receiptDate: "2022-07-01"
+      entitlementStartDate: "2022-07-15"
+      periodicity: "fortnightly"
+      status: "in_payment"
+      awards:
+        - startDate: "2025-04-01"
+          status: "live"
+          amount: 10170
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 10170
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2022-07-15"

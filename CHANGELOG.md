@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.0] - 2026-10-05
+
+### Added
+
+- Mock connection: with `DWP_API_CONNECTION=mock_dwp` the gem answers every call (`token`, `match_citizen`, `citizen`, `claims`) from the test citizens in `lib/hwf-dwp-api/mock/citizens` instead of calling DWP, and needs no credentials. Added because the DWP sandbox is too unreliable for scenario testing. The switch sits at the HTTP call, so the existing response and error handling still runs. Any other value, or none, uses the real connection. Rate limiting is not mocked.
+
 ## [0.3.4] - 2026-05-21
 
 ### Added

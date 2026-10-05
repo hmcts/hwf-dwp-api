@@ -4,10 +4,10 @@ module HwfDwpApi
   module Endpoint
     module Citizen
       def citizen(guid, header_info)
-        @response = HTTParty.get(
-          "#{api_url}/capi/v2/citizens/#{guid}",
-          headers: request_headers(header_info),
-          **mtls_options
+        @response = http_request(
+          :get,
+          "/capi/v2/citizens/#{guid}",
+          headers: request_headers(header_info)
         )
 
         process_citizen_response

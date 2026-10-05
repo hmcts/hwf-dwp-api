@@ -1,0 +1,85 @@
+citizen:
+  internal_id: "citizen_001"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Clarke"
+    dateOfBirth: "1990-01-15"
+    firstName: "Michael"
+    ninoFragment: "3456"
+    nino: "QQ123456C"
+    postcode: "NE6 1EA"
+    contactDetails:
+      - "07786557896"
+      - "michael.clarke@example.com"
+  details:
+    nino: "QQ123456C"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Michael"
+      lastName: "Clarke"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1990-01-15"
+    dateOfBirth:
+      date: "1990-01-15"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07786557896"
+        preferredContactIndicator: true
+      - contactType: "home_e-mail_address"
+        value: "michael.clarke@example.com"
+        preferredContactIndicator: false
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2024-06-01"
+      claimDate: "2024-05-20"
+      receiptDate: "2024-05-20"
+      entitlementStartDate: "2024-06-01"
+      periodicity: "calendar_monthly"
+      status: "in_payment"
+      children:
+        - childId: "child_001"
+          fullName: "Emma Clarke"
+          dateOfBirth: "2018-03-15"
+          effectiveStartDate: "2024-06-01"
+        - childId: "child_002"
+          fullName: "James Clarke"
+          dateOfBirth: "2020-11-22"
+          effectiveStartDate: "2024-06-01"
+      awards:
+        - startDate: "2025-04-01"
+          status: "live"
+          amount: 155784
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 45000
+            limitedCapabilityForWorkStatus: "none"
+            awardPaymentAdjustments:
+              - adjustmentCategory: "advance_repayment"
+                adjustmentAmount: 5000
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+            - type: "care"
+              subType: "child_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 58766
+            - type: "care"
+              subType: "housing_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 57717
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-06-01"

@@ -1,0 +1,71 @@
+# RST-8365 example 2 (row 11, scenario 2) — expected benefit checker response: No. See README
+citizen:
+  internal_id: "rst_8365_02"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Okafor"
+    dateOfBirth: "1985-07-23"
+    firstName: "Brian"
+    ninoFragment: "6502"
+    nino: "JC836502B"
+    postcode: "M4 5BD"
+    contactDetails:
+      - "07700900802"
+  details:
+    nino: "JC836502B"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Brian"
+      lastName: "Okafor"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1985-07-23"
+    dateOfBirth:
+      date: "1985-07-23"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900802"
+        preferredContactIndicator: true
+  # UC claim 2026-06-01 to 2026-06-30, not active (claim_closed).
+  # Same amounts as example 1, so the status is the only thing that fails.
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-06-01"
+      endDate: "2026-06-30"
+      claimDate: "2026-05-25"
+      receiptDate: "2026-05-25"
+      entitlementStartDate: "2026-06-01"
+      endReason: "started_work"
+      periodicity: "calendar_monthly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2026-06-01"
+          endDate: "2026-06-30"
+          status: "superseded"
+          amount: 74500
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 41050
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+            - type: "care"
+              subType: "housing_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 35199
+      paymentStatus:
+        - type: "entitlement_terminated"
+          startDate: "2026-06-01"
+          endDate: "2026-06-30"

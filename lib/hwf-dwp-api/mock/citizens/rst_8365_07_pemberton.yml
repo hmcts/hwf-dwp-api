@@ -1,0 +1,65 @@
+# RST-8365 example 7 (row 16, scenario 4) — expected benefit checker response: No. See README
+citizen:
+  internal_id: "rst_8365_07"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Pemberton"
+    dateOfBirth: "1996-06-08"
+    firstName: "Grace"
+    ninoFragment: "6507"
+    nino: "JC836507C"
+    postcode: "EX1 1EE"
+    contactDetails:
+      - "07700900807"
+  details:
+    nino: "JC836507C"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Grace"
+      lastName: "Pemberton"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1996-06-08"
+    dateOfBirth:
+      date: "1996-06-08"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900807"
+        preferredContactIndicator: true
+  # JSA (income based) 2026-03-01 to 2026-08-31, not active (claim_closed).
+  # The claim dates span the whole window, so only the status fails.
+  claims:
+    - benefitType: "job_seekers_allowance_income_based"
+      startDate: "2026-03-01"
+      endDate: "2026-08-31"
+      claimDate: "2026-02-23"
+      receiptDate: "2026-02-23"
+      entitlementStartDate: "2026-03-01"
+      endReason: "started_work"
+      periodicity: "fortnightly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2026-03-01"
+          endDate: "2026-08-31"
+          status: "superseded"
+          amount: 210000
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 210000
+      paymentStatus:
+        - type: "entitlement_terminated"
+          startDate: "2026-03-01"
+          endDate: "2026-08-31"

@@ -1,0 +1,65 @@
+# RST-8365 example 4 (row 13, scenario 2) — expected benefit checker response: No. See README
+citizen:
+  internal_id: "rst_8365_04"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Nolan"
+    dateOfBirth: "1978-04-17"
+    firstName: "Derek"
+    ninoFragment: "6504"
+    nino: "JC836504D"
+    postcode: "CF10 3AT"
+    contactDetails:
+      - "07700900804"
+  details:
+    nino: "JC836504D"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Derek"
+      lastName: "Nolan"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1978-04-17"
+    dateOfBirth:
+      date: "1978-04-17"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900804"
+        preferredContactIndicator: true
+  # UC claim as example 1 but award amount 0: nothing paid in the window.
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-06-01"
+      endDate: "2026-06-30"
+      claimDate: "2026-05-25"
+      receiptDate: "2026-05-25"
+      entitlementStartDate: "2026-06-01"
+      periodicity: "calendar_monthly"
+      status: "active"
+      awards:
+        - startDate: "2026-06-01"
+          endDate: "2026-06-30"
+          status: "live"
+          amount: 0
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 41050
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 0
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-06-01"
+          endDate: "2026-06-30"

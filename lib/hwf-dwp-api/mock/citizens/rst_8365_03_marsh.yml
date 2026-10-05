@@ -1,0 +1,69 @@
+# RST-8365 example 3 (row 12, scenario 2) — expected benefit checker response: No. See README
+citizen:
+  internal_id: "rst_8365_03"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Marsh"
+    dateOfBirth: "1994-11-02"
+    firstName: "Chloe"
+    ninoFragment: "6503"
+    nino: "JC836503C"
+    postcode: "B2 4QA"
+    contactDetails:
+      - "07700900803"
+  details:
+    nino: "JC836503C"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Chloe"
+      lastName: "Marsh"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1994-11-02"
+    dateOfBirth:
+      date: "1994-11-02"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900803"
+        preferredContactIndicator: true
+  # UC claim as example 1 but take home pay 50000 (£500), which fails.
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-06-01"
+      endDate: "2026-06-30"
+      claimDate: "2026-05-25"
+      receiptDate: "2026-05-25"
+      entitlementStartDate: "2026-06-01"
+      periodicity: "calendar_monthly"
+      status: "active"
+      awards:
+        - startDate: "2026-06-01"
+          endDate: "2026-06-30"
+          status: "live"
+          amount: 74500
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 50000
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+            - type: "care"
+              subType: "housing_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 35199
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-06-01"
+          endDate: "2026-06-30"

@@ -1,0 +1,58 @@
+citizen:
+  internal_id: "citizen_008"
+  matching_scenario: "scenario_2"
+  match_attributes:
+    lastName: "Smith"
+    dateOfBirth: "1985-06-15"
+    firstName: "Janet"
+    ninoFragment: "4455"
+    nino: "MN445566C"
+    postcode: "E1 6AN"
+    contactDetails:
+      - "07700900999"
+  details:
+    nino: "MN445566C"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Janet"
+      lastName: "Smith"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1985-06-15"
+    dateOfBirth:
+      date: "1985-06-15"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900999"
+        preferredContactIndicator: true
+  claims:
+    - benefitType: "pensions_credit"
+      startDate: "2024-01-01"
+      claimDate: "2023-12-10"
+      receiptDate: "2023-12-10"
+      entitlementStartDate: "2024-01-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2025-04-01"
+          status: "live"
+          amount: 19350
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "guarantee_credit"
+              componentRate: "standard_rate"
+              componentAwardAmount: 19350
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-01-01"

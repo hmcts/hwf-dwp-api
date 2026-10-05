@@ -1,0 +1,56 @@
+# RST-8365 example 12 (row 23, scenario 7) — expected benefit checker response: No. See README
+citizen:
+  internal_id: "rst_8365_12"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Ashworth"
+    dateOfBirth: "1980-05-28"
+    firstName: "Liam"
+    ninoFragment: "6512"
+    nino: "JC836512D"
+    postcode: "PL1 2AA"
+    contactDetails:
+      - "07700900812"
+  details:
+    nino: "JC836512D"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Liam"
+      lastName: "Ashworth"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1980-05-28"
+    dateOfBirth:
+      date: "1980-05-28"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900812"
+        preferredContactIndicator: true
+  # Carer's Allowance from 2026-03-01, active and paying. It is not one of the
+  # Help with Fees benefit types, so the benefit type is the only thing that fails.
+  claims:
+    - benefitType: "carers_allowance"
+      startDate: "2026-03-01"
+      claimDate: "2026-02-23"
+      receiptDate: "2026-02-23"
+      entitlementStartDate: "2026-03-01"
+      periodicity: "4_weekly"
+      status: "active"
+      awards:
+        - startDate: "2026-03-01"
+          status: "live"
+          amount: 33320
+          awardType: "fixed_period"
+          isJointClaim: false
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-03-01"

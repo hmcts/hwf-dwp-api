@@ -1,0 +1,36 @@
+# DWP Demo (sandbox) user, copied from DWP/API test users/parveen.json — see CHANGELOG.md
+citizen:
+  internal_id: "demo_parveen"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Parveen"
+    dateOfBirth: "1949-01-05"
+    firstName: "Farah"
+    postcode: "G1 5LE"
+  details:
+    name:
+      firstName: "Farah"
+      lastName: "Parveen"
+      metadata:
+        verificationType: "authoritative"
+    dateOfBirth:
+      date: "1949-01-05"
+      metadata:
+        verificationType: "authoritative"
+  claims:
+    - id: "80"
+      benefitType: "pensions_credit"
+      startDate: "2025-07-05"
+      status: "active"
+      awards:
+        - isJointClaim: false
+          amount: 5000
+          startDate: "2021-05-22"
+          status: "live"
+          awardComponents:
+            - type: "other"
+              subType: "guarantee_credit"
+              componentAwardAmount: 5000
+            - type: "other"
+              subType: "savings_credit"
+              componentAwardAmount: 6000

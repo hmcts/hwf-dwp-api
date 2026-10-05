@@ -1,0 +1,70 @@
+# RST-8365 example 1 (row 10, scenario 1) — expected benefit checker response: Yes. See README
+citizen:
+  internal_id: "rst_8365_01"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Hart"
+    dateOfBirth: "1990-02-11"
+    firstName: "Amelia"
+    ninoFragment: "6501"
+    nino: "JC836501A"
+    postcode: "LS1 4AP"
+    contactDetails:
+      - "07700900801"
+  details:
+    nino: "JC836501A"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Amelia"
+      lastName: "Hart"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1990-02-11"
+    dateOfBirth:
+      date: "1990-02-11"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900801"
+        preferredContactIndicator: true
+  # UC claim 2026-06-01 to 2026-06-30, active, amount 74500, take home pay 41050.
+  # Every criterion passes.
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-06-01"
+      endDate: "2026-06-30"
+      claimDate: "2026-05-25"
+      receiptDate: "2026-05-25"
+      entitlementStartDate: "2026-06-01"
+      periodicity: "calendar_monthly"
+      status: "active"
+      awards:
+        - startDate: "2026-06-01"
+          endDate: "2026-06-30"
+          status: "live"
+          amount: 74500
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 41050
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+            - type: "care"
+              subType: "housing_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 35199
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-06-01"
+          endDate: "2026-06-30"

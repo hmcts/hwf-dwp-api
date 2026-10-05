@@ -1,0 +1,66 @@
+# RST-8365 example 9 (row 18, scenario 4) — expected benefit checker response: No. See README
+citizen:
+  internal_id: "rst_8365_09"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Castle"
+    dateOfBirth: "1991-03-19"
+    firstName: "Imogen"
+    ninoFragment: "6509"
+    nino: "JC836509A"
+    postcode: "NR1 3QY"
+    contactDetails:
+      - "07700900809"
+  details:
+    nino: "JC836509A"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Imogen"
+      lastName: "Castle"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1991-03-19"
+    dateOfBirth:
+      date: "1991-03-19"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900809"
+        preferredContactIndicator: true
+  # JSA (income based) 2026-03-01 to 2026-08-31, amount 74500, payments suspended.
+  # Suspension is set on the claim status, the award type, the component and
+  # the payment status.
+  claims:
+    - benefitType: "job_seekers_allowance_income_based"
+      startDate: "2026-03-01"
+      endDate: "2026-08-31"
+      claimDate: "2026-02-23"
+      receiptDate: "2026-02-23"
+      entitlementStartDate: "2026-03-01"
+      periodicity: "fortnightly"
+      status: "suspended"
+      awards:
+        - startDate: "2026-03-01"
+          endDate: "2026-08-31"
+          status: "live"
+          amount: 74500
+          awardType: "suspension"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 74500
+              isPaymentSuspended: true
+      paymentStatus:
+        - type: "suspended"
+          startDate: "2026-03-01"
+          endDate: "2026-08-31"

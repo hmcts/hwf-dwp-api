@@ -1,0 +1,93 @@
+citizen:
+  internal_id: "citizen_007"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Taylor"
+    dateOfBirth: "1975-02-14"
+    firstName: "David"
+    ninoFragment: "8901"
+    nino: "KL890123B"
+    postcode: "L1 1AA"
+    contactDetails:
+      - "07700900654"
+  details:
+    nino: "KL890123B"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "David"
+      lastName: "Taylor"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1975-02-14"
+    dateOfBirth:
+      date: "1975-02-14"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900654"
+        preferredContactIndicator: true
+  claims:
+    - benefitType: "income_support"
+      startDate: "2022-01-01"
+      endDate: "2024-06-30"
+      claimDate: "2021-12-15"
+      receiptDate: "2021-12-15"
+      entitlementStartDate: "2022-01-01"
+      endReason: "no_longer_wishes_to_claim"
+      periodicity: "fortnightly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2024-04-01"
+          endDate: "2024-06-30"
+          status: "superseded"
+          amount: 84680
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 84680
+      paymentStatus:
+        - type: "entitlement_terminated"
+          startDate: "2022-01-01"
+          endDate: "2024-06-30"
+    - benefitType: "universal_credit"
+      startDate: "2024-09-01"
+      endDate: "2025-01-31"
+      claimDate: "2024-08-20"
+      receiptDate: "2024-08-20"
+      entitlementStartDate: "2024-09-01"
+      endReason: "started_work"
+      periodicity: "calendar_monthly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2024-09-01"
+          endDate: "2025-01-31"
+          status: "superseded"
+          amount: 120000
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 0
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 39301
+            - type: "care"
+              subType: "housing_element"
+              componentRate: "standard_rate"
+              componentAwardAmount: 80699
+      paymentStatus:
+        - type: "entitlement_terminated"
+          startDate: "2024-09-01"
+          endDate: "2025-01-31"

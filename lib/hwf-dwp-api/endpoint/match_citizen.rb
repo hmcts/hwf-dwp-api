@@ -4,11 +4,11 @@ module HwfDwpApi
   module Endpoint
     module MatchCitizen
       def match_citizen(citizen_params, header_info)
-        @response = HTTParty.post(
-          "#{api_url}/capi/v2/citizens/match",
+        @response = http_request(
+          :post,
+          '/capi/v2/citizens/match',
           headers: request_headers(header_info),
-          body: match_request_body(citizen_params).to_json,
-          **mtls_options
+          body: match_request_body(citizen_params).to_json
         )
 
         process_match_response
@@ -55,17 +55,19 @@ module HwfDwpApi
       end
 
       def match_error_details
-        {
-          400 => [response_hash.to_json, :bad_request],
-          401 => [response_hash.to_json, :invalid_token],
-          403 => [response_hash.to_json, :forbidden],
-          404 => [response_hash.to_json, :not_found],
-          405 => [response_hash.to_json, :method_not_allowed],
-          412 => [response_hash.to_json, :precondition_failed],
-          422 => [response_hash.to_json, :unprocessable],
-          429 => [response_hash.to_json, :rate_limited],
-          503 => [response_hash.to_json, :service_unavailable]
-        }.fetch(@response.code, [response_hash.to_json, :standard_error])
+        error_type = {
+          400 => :bad_request,
+          401 => :invalid_token,
+          403 => :forbidden,
+          404 => :not_found,
+          405 => :method_not_allowed,
+          412 => :precondition_failed,
+          422 => :unprocessable,
+          429 => :rate_limited,
+          503 => :service_unavailable
+        }.fetch(@response.code, :standard_error)
+
+        [response_hash.to_json, error_type]
       end
 
       def error_detail

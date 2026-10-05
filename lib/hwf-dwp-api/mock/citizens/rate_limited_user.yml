@@ -1,0 +1,64 @@
+citizen:
+  internal_id: "citizen_010"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Hughes"
+    dateOfBirth: "1991-08-22"
+    firstName: "Olivia"
+    ninoFragment: "7841"
+    nino: "PQ784123C"
+    postcode: "M1 1AA"
+    contactDetails:
+      - "07700900781"
+  details:
+    nino: "PQ784123C"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Olivia"
+      lastName: "Hughes"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1991-08-22"
+    dateOfBirth:
+      date: "1991-08-22"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900781"
+        preferredContactIndicator: true
+  # Match succeeds normally. The claims endpoint returns 429 for the first
+  # `fail_count` calls within `window_seconds`, then succeeds on the next
+  # call and resets the counter so the cycle repeats. Used to exercise
+  # rate-limit retry handling on the consumer side.
+  claims_rate_limit_simulation:
+    fail_count: 2
+    window_seconds: 60
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2025-01-15"
+      claimDate: "2025-01-01"
+      receiptDate: "2025-01-01"
+      entitlementStartDate: "2025-01-15"
+      periodicity: "calendar_monthly"
+      status: "in_payment"
+      awards:
+        - startDate: "2025-04-01"
+          status: "live"
+          amount: 38450
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 38450
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2025-01-15"

@@ -1,0 +1,37 @@
+citizen:
+  internal_id: "citizen_006"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Jones"
+    dateOfBirth: "1988-07-30"
+    firstName: "Mary"
+    ninoFragment: "1234"
+    nino: "IJ123456A"
+    postcode: "CF10 1AA"
+    contactDetails:
+      - "07700900321"
+  details:
+    nino: "IJ123456A"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Mary"
+      lastName: "Jones"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1988-07-30"
+    dateOfBirth:
+      date: "1988-07-30"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900321"
+        preferredContactIndicator: true
+  claims: []

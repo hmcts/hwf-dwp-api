@@ -1,0 +1,63 @@
+# RST-8365 example 8 (row 17, scenario 4) — expected benefit checker response: No. See README
+citizen:
+  internal_id: "rst_8365_08"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Singh"
+    dateOfBirth: "1973-12-14"
+    firstName: "Harvey"
+    ninoFragment: "6508"
+    nino: "JC836508D"
+    postcode: "LE2 1TF"
+    contactDetails:
+      - "07700900808"
+  details:
+    nino: "JC836508D"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Harvey"
+      lastName: "Singh"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1973-12-14"
+    dateOfBirth:
+      date: "1973-12-14"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900808"
+        preferredContactIndicator: true
+  # Income Support 2026-03-01 to 2026-08-31, active, but award amount 0.
+  claims:
+    - benefitType: "income_support"
+      startDate: "2026-03-01"
+      endDate: "2026-08-31"
+      claimDate: "2026-02-23"
+      receiptDate: "2026-02-23"
+      entitlementStartDate: "2026-03-01"
+      periodicity: "fortnightly"
+      status: "active"
+      awards:
+        - startDate: "2026-03-01"
+          endDate: "2026-08-31"
+          status: "live"
+          amount: 0
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 0
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-03-01"
+          endDate: "2026-08-31"

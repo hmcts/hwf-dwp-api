@@ -1,0 +1,39 @@
+citizen:
+  internal_id: "citizen_009"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Wilson"
+    dateOfBirth: "1982-11-08"
+    firstName: "Peter"
+    ninoFragment: "2345"
+    nino: "OP123456B"
+    postcode: "E14 5AB"
+    contactDetails:
+      - "07700900111"
+  details:
+    nino: "OP123456B"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Peter"
+      lastName: "Wilson"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1982-11-08"
+    dateOfBirth:
+      date: "1982-11-08"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900111"
+        preferredContactIndicator: true
+  claims:
+    - benefitType: "income_support"
+      _empty_attributes: true

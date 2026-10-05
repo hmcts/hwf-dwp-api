@@ -1,0 +1,58 @@
+citizen:
+  internal_id: "citizen_002"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Smith"
+    dateOfBirth: "1985-06-15"
+    firstName: "Jane"
+    ninoFragment: "9012"
+    nino: "AB789012D"
+    postcode: "SW1A 1AA"
+    contactDetails:
+      - "07700900123"
+  details:
+    nino: "AB789012D"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mrs"
+      firstName: "Jane"
+      lastName: "Smith"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1985-06-15"
+    dateOfBirth:
+      date: "1985-06-15"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900123"
+        preferredContactIndicator: true
+  claims:
+    - benefitType: "income_support"
+      startDate: "2023-03-01"
+      claimDate: "2023-02-15"
+      receiptDate: "2023-02-15"
+      entitlementStartDate: "2023-03-01"
+      periodicity: "fortnightly"
+      status: "in_payment"
+      awards:
+        - startDate: "2025-04-01"
+          status: "live"
+          amount: 84680
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 84680
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2023-03-01"
