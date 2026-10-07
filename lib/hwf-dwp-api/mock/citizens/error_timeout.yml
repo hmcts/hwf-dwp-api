@@ -1,0 +1,13 @@
+# DWP error scenarios: the match call times out (Net::OpenTimeout). Staff app records Server unavailable.
+citizen:
+  internal_id: "citizen_018"
+  matching_scenario: "scenario_1"
+  simulate_failure: "timeout"
+  match_attributes:
+    lastName: "Grant"
+    dateOfBirth: "1983-05-19"
+    firstName: "Oliver"
+    ninoFragment: "7801"
+    nino: "JC127801A"
+    postcode: "BA1 1LZ"
+  claims: []

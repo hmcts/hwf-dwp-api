@@ -8,6 +8,63 @@ RSpec.describe HwfDwpApi::Endpoint do
     described_class.ca_bundle = nil
   end
 
+  # Any failure to reach DWP is a connection_error, whichever endpoint and whichever
+  # way the network failed, so the staff app can count it as a DWP failure.
+  describe 'network failures' do
+    let(:claims_url) { 'https://external-test.integr-dev.dwpcloud.uk:8443/capi/v2/citizens/guid-123/claims' }
+    let(:header_info) { { access_token: 'token', correlation_id: 'id', context: 'hmcts-hwf', policy_id: 'hwf-policy' } }
+
+    {
+      'times out connecting' => lambda(&:to_timeout),
+      'cannot resolve the host' => ->(stub) { stub.to_raise(SocketError.new('getaddrinfo: Name not known')) },
+      'has the connection reset' => ->(stub) { stub.to_raise(Errno::ECONNRESET.new('Connection reset by peer')) },
+      'cannot reach the host' => ->(stub) { stub.to_raise(Errno::EHOSTUNREACH.new('No route to host')) },
+      'is refused' => ->(stub) { stub.to_raise(Errno::ECONNREFUSED.new('Connection refused')) }
+    }.each do |failure, stub_it|
+      context "when the request #{failure}" do
+        before { stub_it.call(stub_request(:get, claims_url)) }
+
+        it 'raises a HwfDwpApiError with connection_error type' do
+          expect { described_class.claims('guid-123', header_info) }.to raise_error(HwfDwpApiError) { |error|
+            expect(error.error_type).to eq(:connection_error)
+            expect(error.message).to match(/Connection|timed out|resolve|reset|route/i)
+          }
+        end
+      end
+    end
+
+    context 'when the token request times out' do
+      before { stub_request(:post, 'https://external-test.integr-dev.dwpcloud.uk:8443/citizen-information/oauth2/token').to_timeout }
+
+      it 'raises a HwfDwpApiError with connection_error type' do
+        expect { described_class.token('id', 'secret') }.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(:connection_error)
+        }
+      end
+    end
+
+    context 'when the response body is not JSON' do
+      before { stub_request(:get, claims_url).to_return(status: 502, body: '<html>Bad Gateway</html>') }
+
+      it 'raises a HwfDwpApiError with service_unavailable type naming the status' do
+        expect { described_class.claims('guid-123', header_info) }.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(:service_unavailable)
+          expect(JSON.parse(error.message).dig('errors', 0, 'status')).to eq('502')
+        }
+      end
+    end
+
+    context 'when a 200 response body is not JSON' do
+      before { stub_request(:get, claims_url).to_return(status: 200, body: 'not json') }
+
+      it 'raises a HwfDwpApiError with standard_error type' do
+        expect { described_class.claims('guid-123', header_info) }.to raise_error(HwfDwpApiError) { |error|
+          expect(error.error_type).to eq(:standard_error)
+        }
+      end
+    end
+  end
+
   describe 'mTLS options' do
     let(:test_key) { OpenSSL::PKey::RSA.new(2048) }
     let(:test_cert) do

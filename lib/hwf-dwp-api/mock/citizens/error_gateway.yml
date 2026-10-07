@@ -1,0 +1,13 @@
+# DWP error scenarios: a gateway in front of DWP answers with an HTML 502 page. Staff app records Technical fault.
+citizen:
+  internal_id: "citizen_021"
+  matching_scenario: "scenario_1"
+  simulate_failure: "gateway_error"
+  match_attributes:
+    lastName: "Ferris"
+    dateOfBirth: "1986-08-08"
+    firstName: "Isla"
+    ninoFragment: "7804"
+    nino: "JC127804D"
+    postcode: "EH1 1YZ"
+  claims: []

@@ -194,6 +194,28 @@ RSpec.describe HwfDwpApi, 'mock connection' do
     end
   end
 
+  # error_*.yml: matching them makes the mock fail the way DWP or the network would
+  describe 'error test citizens' do
+    {
+      'Grant' => ['1983-05-19', :connection_error, /execution expired/],
+      'Novak' => ['1979-10-23', :connection_error, /getaddrinfo/],
+      'Stone' => ['1990-01-30', :connection_error, /reset/],
+      'Ferris' => ['1986-08-08', :service_unavailable, /not JSON \(HTTP 502\)/]
+    }.each do |last_name, (date_of_birth, error_type, message)|
+      it "#{last_name}: raises #{error_type}" do
+        error = error_from { connection.match_citizen(last_name: last_name, date_of_birth: date_of_birth) }
+
+        expect(error.error_type).to eq error_type
+        expect(error.message).to match(message)
+      end
+    end
+
+    it 'does not send any request' do
+      error_from { connection.match_citizen(last_name: 'Grant', date_of_birth: '1983-05-19') }
+      expect(WebMock).not_to have_requested(:any, /.*/)
+    end
+  end
+
   describe 'test citizens' do
     let(:citizens) { HwfDwpApi::Mock::TestCitizens.all }
 

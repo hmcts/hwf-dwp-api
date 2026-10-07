@@ -1,0 +1,13 @@
+# DWP error scenarios: the connection is reset (Errno::ECONNRESET). Staff app records Server unavailable.
+citizen:
+  internal_id: "citizen_020"
+  matching_scenario: "scenario_1"
+  simulate_failure: "connection_reset"
+  match_attributes:
+    lastName: "Stone"
+    dateOfBirth: "1990-01-30"
+    firstName: "Reuben"
+    ninoFragment: "7803"
+    nino: "JC127803C"
+    postcode: "SA1 3SN"
+  claims: []

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1] - 2026-10-07
+
+### Changed
+
+- Every way of failing to reach DWP (timeouts, DNS failures, connection resets, unreachable host, refused) now raises `HwfDwpApiError` with `:connection_error`, as connection refused already did; previously the raw Ruby exception escaped. A non-JSON response body (a gateway's 502/504 page) raises `:service_unavailable` for 5xx and `:standard_error` otherwise instead of a `JSON::ParserError`. Consumers can count all of these as DWP failures.
+- Mock: four test citizens whose match simulates a timeout, a DNS failure, a connection reset and an HTML 502 from a gateway (`simulate_failure` in the citizen YAML), so consumers can test their outage handling without a network.
+
 ## [0.4.0] - 2026-10-05
 
 ### Added
