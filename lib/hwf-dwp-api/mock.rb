@@ -4,6 +4,7 @@
 # See the "Mock connection" section of the README.
 require_relative 'mock/response'
 require_relative 'mock/test_citizens'
+require_relative 'mock/failures'
 require_relative 'mock/match'
 require_relative 'mock/claims'
 require_relative 'mock/responder'

@@ -1,0 +1,12 @@
+# DWP error scenarios: the DWP host cannot be resolved (SocketError). Staff app records Server unavailable.
+citizen:
+  internal_id: "citizen_019"
+  matching_scenario: "scenario_1"
+  simulate_failure: "dns"
+  match_attributes:
+    lastName: "Novak"
+    dateOfBirth: "1979-10-23"
+    firstName: "Hana"
+    ninoFragment: "7802"
+    nino: "JC127802B"
+  claims: []

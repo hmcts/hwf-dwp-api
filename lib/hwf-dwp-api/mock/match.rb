@@ -31,6 +31,8 @@ module HwfDwpApi
       end
 
       def matched(citizen)
+        return Failures.response(citizen['simulate_failure']) if citizen['simulate_failure']
+
         Response.data(
           id: TestCitizens.guid_for(citizen),
           type: 'MatchResult',
