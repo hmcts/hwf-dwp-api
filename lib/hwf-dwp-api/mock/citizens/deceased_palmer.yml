@@ -1,0 +1,36 @@
+# Date of death scenarios: died 2022-01-05 (same date as the sandbox deceased user), no claims. A valid date of death for any application dated 05/01/2022 or later.
+citizen:
+  internal_id: "citizen_015"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Palmer"
+    dateOfBirth: "1948-03-14"
+    firstName: "Edith"
+    ninoFragment: "7701"
+    nino: "JC127701A"
+    postcode: "YO1 7HH"
+  details:
+    nino: "JC127701A"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mrs"
+      firstName: "Edith"
+      lastName: "Palmer"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1948-03-14"
+    dateOfBirth:
+      date: "1948-03-14"
+      metadata:
+        verificationType: "authoritative"
+    dateOfDeath:
+      date: "2022-01-05"
+      metadata:
+        verificationType: "authoritative"
+  claims: []

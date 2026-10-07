@@ -6,12 +6,12 @@ citizen:
     dateOfBirth: "1955-09-22"
     firstName: "John"
     ninoFragment: "3456"
-    nino: "CD345678A"
+    nino: "JC123456A"
     postcode: "M1 1AA"
     contactDetails:
       - "01onal234567"
   details:
-    nino: "CD345678A"
+    nino: "JC123456A"
     sex: "M"
     statusIndicator: false
     identityVerificationStatus: "verified"

@@ -1,0 +1,54 @@
+# Date of death scenarios: died 2026-09-28 but DWP has not closed the Income Support claim
+# yet: still active, open ended, live award. The date of death is only on the citizen record.
+citizen:
+  internal_id: "citizen_023"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Calder"
+    dateOfBirth: "1962-07-04"
+    firstName: "Ruth"
+    ninoFragment: "7705"
+    nino: "JC127705A"
+    postcode: "TR1 2HD"
+  details:
+    nino: "JC127705A"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mrs"
+      firstName: "Ruth"
+      lastName: "Calder"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1962-07-04"
+    dateOfBirth:
+      date: "1962-07-04"
+      metadata:
+        verificationType: "authoritative"
+    dateOfDeath:
+      date: "2026-09-28"
+      metadata:
+        verificationType: "evidenced"
+  claims:
+    - benefitType: "income_support"
+      startDate: "2023-05-15"
+      claimDate: "2023-05-01"
+      receiptDate: "2023-05-01"
+      entitlementStartDate: "2023-05-15"
+      periodicity: "fortnightly"
+      status: "active"
+      awards:
+        - startDate: "2025-04-07"
+          status: "live"
+          amount: 9290
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "other"
+              subType: "personal_allowance"
+              componentAwardAmount: 9290

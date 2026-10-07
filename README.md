@@ -230,6 +230,12 @@ The outcome is what the HwF staff app returns for each citizen under its RST-836
 | DWP error | Hana Novak | 23/10/1979 | JC127802B | OX1 1DP | The DWP host cannot be resolved | – | – | Error | Never | Staff app: Server unavailable |
 | DWP error | Reuben Stone | 30/01/1990 | JC127803C | SA1 3SN | The connection is reset | – | – | Error | Never | Staff app: Server unavailable |
 | DWP error | Isla Ferris | 08/08/1986 | JC127804D | EH1 1YZ | A gateway answers with an HTML 502 page | – | – | Error | Never | Staff app: Technical fault |
+| Date of death | Edith Palmer | 14/03/1948 | JC127701A | YO1 7HH | No claims; died 05/01/2022 | – | – | No | Never | Flagged: date of death before any current application date |
+| Date of death | George Hollis | 02/11/1951 | JC127702B | DH1 3LE | No claims; died 15/09/2026 | – | – | No | Never | Flagged for an application dated 15/09/2026 or later; before that not flagged, and No because there are no claims |
+| Date of death | Margaret Doyle | 27/06/1946 | JC127703C | CA1 1QS | No claims; date of death "05/01/2022" (wrong format) | – | – | No | Never | Wrong format, never flagged; No because there are no claims |
+| Date of death | Arthur Whitfield | 11/02/1957 | JC127704D | NR2 1AB | Universal Credit, closed on the date of death 20/09/2026 (endReason death_of_an_applicant); died 20/09/2026 | £400.14, £400.14, £266.76 | £0, £0, £0 | No | Never | Flagged for an application dated 20/09/2026 or later; before that the closed claim gives No |
+| Date of death | Ruth Calder | 04/07/1962 | JC127705A | TR1 2HD | Income Support, active from 15/05/2023, not closed by DWP; died 28/09/2026 | £92.90 | – | Yes, until the death | 07/04/2025 to 27/09/2026 | Flagged for an application dated 28/09/2026 or later; before that the open claim gives Yes |
+| Date of death | Dennis Harker | 30/12/1971 | JC127706B | HU1 3DZ | JSA (income-based), closed on the date of death 15/06/2026; died 15/06/2026 | £90.05 | – | No | Never | Flagged for an application dated 15/06/2026 or later; before that the closed claim gives No |
 | Demo sandbox | Samantha Smith | 01/02/1981 | Any | AB12 5AJ | Universal Credit, in payment from 28/08/2024 | £878.05 | £0 | Yes, past dates only | 28/08/2024 to 08/03/2026 | The only award ended 29/01/2026 |
 | Demo sandbox | Aly Turing | 01/03/2000 | Any | PH1 1BD | Universal Credit, in payment from 28/10/2022 | £890.19, £802.26, £824.07, £824.07 | £900, £0, £900, £0 | Yes, past dates only | 28/04/2023 to 02/07/2023, and 28/09/2023 to 03/12/2023 | The awards are all from 2023; two of the four have take-home pay of £900 |
 | Demo sandbox | Farah Parveen | 05/01/1949 | Any | G1 5LE | Pension Credit, active from 05/07/2025 | £50 | – | Yes | 05/07/2025 onwards |  |
@@ -250,8 +256,9 @@ Things to know:
 - **What the staff app needs for a Yes (RST-8365):** a listed benefit (Universal Credit, Pension Credit, Income Support, income-based ESA or JSA), an active claim inside the date window, and a `live` award inside the window that pays over £0. Universal Credit also needs take-home pay under £500 on that award.
 - **The award dates matter, not only the claim dates.** Several general citizens have a claim that started before their award, so they are Yes only from the award's start date. Samantha Smith and Aly Turing have no award covering current dates, so they are No for a current application.
 - **A claim with no status of its own** (Andrew Connelly) is decided on its `live` award.
+- **Date of death** is only on the citizen record (`get_citizen`), which the staff app fetches after every match, before the claims. A date on or before the application date is *flagged*: the check is No with `date_of_death_flagged`, whatever the claims say. A later date, or a badly formatted one, is not flagged and the claims decide. Everyone outside the "Date of death" group has no date of death.
 - **The DWP error citizens** fail when they are matched, through the gem's normal error handling, so the staff app sees exactly what a real timeout, DNS failure, reset or bad gateway would give. Five such checks in a row take the staff app's DWP banner offline. A citizen's YAML opts in with `simulate_failure: timeout | dns | connection_reset | gateway_error`.
-- **Some NI numbers are constructed.** Ten of the general citizens have a stored `nino` that fails the staff app's format check or does not end in their `ninoFragment`. Theirs are built as `JC` + two digits + the fragment + `A`.
+- **NI numbers match the citizen record.** Each citizen's `nino` (in the match attributes and in the record `get_citizen` returns) is the one in this table, is a valid NI number and ends in the citizen's `ninoFragment`.
 
 ### RST-8365 example data
 

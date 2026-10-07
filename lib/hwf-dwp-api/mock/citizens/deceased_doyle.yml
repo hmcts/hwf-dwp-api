@@ -1,0 +1,36 @@
+# Date of death scenarios: date of death in the wrong format (dd/mm/yyyy), no claims. Always recorded as invalid_date_of_death.
+citizen:
+  internal_id: "citizen_017"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Doyle"
+    dateOfBirth: "1946-06-27"
+    firstName: "Margaret"
+    ninoFragment: "7703"
+    nino: "JC127703C"
+    postcode: "CA1 1QS"
+  details:
+    nino: "JC127703C"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mrs"
+      firstName: "Margaret"
+      lastName: "Doyle"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1946-06-27"
+    dateOfBirth:
+      date: "1946-06-27"
+      metadata:
+        verificationType: "authoritative"
+    dateOfDeath:
+      date: "05/01/2022"
+      metadata:
+        verificationType: "authoritative"
+  claims: []

@@ -1,0 +1,58 @@
+# Date of death scenarios: died 2026-06-15 with an income-based JSA claim closed on the date
+# of death. Long enough ago that no current application window reaches the claim.
+citizen:
+  internal_id: "citizen_024"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Harker"
+    dateOfBirth: "1971-12-30"
+    firstName: "Dennis"
+    ninoFragment: "7706"
+    nino: "JC127706B"
+    postcode: "HU1 3DZ"
+  details:
+    nino: "JC127706B"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Dennis"
+      lastName: "Harker"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1971-12-30"
+    dateOfBirth:
+      date: "1971-12-30"
+      metadata:
+        verificationType: "authoritative"
+    dateOfDeath:
+      date: "2026-06-15"
+      metadata:
+        verificationType: "authoritative"
+  claims:
+    - benefitType: "job_seekers_allowance_income_based"
+      startDate: "2026-01-12"
+      endDate: "2026-06-15"
+      claimDate: "2026-01-05"
+      receiptDate: "2026-01-05"
+      entitlementStartDate: "2026-01-12"
+      endReason: "death_of_an_applicant"
+      periodicity: "fortnightly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2026-01-12"
+          endDate: "2026-06-15"
+          status: "superseded"
+          amount: 9005
+          awardType: "fixed_period"
+          isJointClaim: false
+          endReason: "death_of_client"
+          awardComponents:
+            - type: "other"
+              subType: "personal_allowance"
+              componentAwardAmount: 9005

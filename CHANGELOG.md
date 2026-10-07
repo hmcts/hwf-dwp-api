@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2] - 2026-10-07
+
+### Added
+
+- Nine mock citizens had a stored `nino` that was not a valid NI number or did not end in their `ninoFragment`; they now carry the NI number in the README table, in the match attributes and the citizen record.
+- Six deceased mock test citizens for the staff app's date of death scenarios, now that it fetches the citizen record after every match: three with no claims (one with a badly formatted date of death), and three with claims on record before the death (closed on the date of death, closed months earlier, and one DWP has not closed yet).
+
 ## [0.4.1] - 2026-10-07
 
 ### Changed

@@ -6,12 +6,12 @@ citizen:
     dateOfBirth: "1991-08-22"
     firstName: "Olivia"
     ninoFragment: "7841"
-    nino: "PQ784123C"
+    nino: "JC127841A"
     postcode: "M1 1AA"
     contactDetails:
       - "07700900781"
   details:
-    nino: "PQ784123C"
+    nino: "JC127841A"
     sex: "F"
     statusIndicator: false
     identityVerificationStatus: "verified"

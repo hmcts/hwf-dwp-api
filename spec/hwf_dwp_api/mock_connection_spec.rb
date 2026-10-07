@@ -216,6 +216,55 @@ RSpec.describe HwfDwpApi, 'mock connection' do
     end
   end
 
+  # deceased_palmer.yml and friends: matched, no claims, date of death on the citizen record
+  describe 'deceased test citizens' do
+    let(:edith_guid) { 'mock-dwp-citizen_015' }
+
+    it 'match but have no claims' do
+      response = connection.match_citizen(last_name: 'Palmer', date_of_birth: '1948-03-14')
+
+      expect(response.dig('data', 'id')).to eq edith_guid
+      expect(error_from { connection.get_claims(edith_guid, window) }.error_type).to eq :not_found
+    end
+
+    it 'carry the date of death on the citizen record' do
+      response = connection.get_citizen(edith_guid)
+
+      expect(response.dig('data', 'attributes', 'dateOfDeath', 'date')).to eq '2022-01-05'
+      expect(response.dig('data', 'attributes', 'dateOfDeath', 'metadata', 'verificationType')).to eq 'authoritative'
+    end
+
+    it 'include one with a badly formatted date of death' do
+      response = connection.get_citizen('mock-dwp-citizen_017')
+
+      expect(response.dig('data', 'attributes', 'dateOfDeath', 'date')).to eq '05/01/2022'
+    end
+
+    # deceased_whitfield.yml, deceased_calder.yml, deceased_harker.yml: claims on record before the death
+    it 'can have claims closed on the date of death' do
+      claim = connection.get_claims('mock-dwp-citizen_022', window)['data'].first
+
+      expect(claim.dig('attributes', 'status')).to eq 'claim_closed'
+      expect(claim.dig('attributes', 'endDate')).to eq '2026-09-20'
+      expect(claim.dig('attributes', 'endReason')).to eq 'death_of_an_applicant'
+      record = connection.get_citizen('mock-dwp-citizen_022')
+      expect(record.dig('data', 'attributes', 'dateOfDeath', 'date')).to eq '2026-09-20'
+    end
+
+    it 'can have a claim DWP has not closed yet' do
+      claim = connection.get_claims('mock-dwp-citizen_023', window)['data'].first
+
+      expect(claim.dig('attributes', 'status')).to eq 'active'
+      expect(claim.dig('attributes', 'endDate')).to be_nil
+      record = connection.get_citizen('mock-dwp-citizen_023')
+      expect(record.dig('data', 'attributes', 'dateOfDeath', 'date')).to eq '2026-09-28'
+    end
+
+    it 'leave the date of death out for everyone else' do
+      expect(connection.get_citizen('mock-dwp-citizen_006').dig('data', 'attributes')).not_to have_key('dateOfDeath')
+    end
+  end
+
   describe 'test citizens' do
     let(:citizens) { HwfDwpApi::Mock::TestCitizens.all }
 

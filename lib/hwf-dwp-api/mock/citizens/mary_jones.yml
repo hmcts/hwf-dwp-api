@@ -6,12 +6,12 @@ citizen:
     dateOfBirth: "1988-07-30"
     firstName: "Mary"
     ninoFragment: "1234"
-    nino: "IJ123456A"
+    nino: "JC121234A"
     postcode: "CF10 1AA"
     contactDetails:
       - "07700900321"
   details:
-    nino: "IJ123456A"
+    nino: "JC121234A"
     sex: "F"
     statusIndicator: false
     identityVerificationStatus: "verified"
