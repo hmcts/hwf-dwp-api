@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.1] - 2026-10-07
+
+### Changed
+
+- Every way of failing to reach DWP (timeouts, DNS failures, connection resets, unreachable host, refused) now raises `HwfDwpApiError` with `:connection_error`, as connection refused already did; previously the raw Ruby exception escaped. A non-JSON response body (a gateway's 502/504 page) raises `:service_unavailable` for 5xx and `:standard_error` otherwise instead of a `JSON::ParserError`. Consumers can count all of these as DWP failures.
+
 ## [0.4.0] - 2026-10-05
 
 ### Added

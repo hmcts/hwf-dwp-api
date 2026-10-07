@@ -17,6 +17,12 @@ module HwfDwpApi
 
       attr_writer :client_cert, :client_key, :ca_bundle
 
+      # Any way of failing to reach DWP: the consumer counts these as a DWP failure
+      NETWORK_ERRORS = [
+        Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ENETUNREACH, Errno::ETIMEDOUT,
+        Errno::EPIPE, SocketError, Net::OpenTimeout, Net::ReadTimeout, Net::WriteTimeout, EOFError
+      ].freeze
+
       private
 
       def request_headers(header_info)
@@ -36,10 +42,22 @@ module HwfDwpApi
         return HwfDwpApi::Mock::Responder.call(path, options) if HwfDwpApi.mock_connection?
 
         HTTParty.public_send(method, "#{api_url}#{path}", **options, **mtls_options)
+      rescue *NETWORK_ERRORS => e
+        raise HwfDwpApiError.new("Connection failed: #{e.class}: #{e.message}", :connection_error)
       end
 
       def response_hash
         JSON.parse(@response.to_s)
+      rescue JSON::ParserError
+        raise_unexpected_body
+      end
+
+      # A body that is not JSON usually comes from a gateway in front of DWP (502, 504, maintenance page)
+      def raise_unexpected_body
+        status = @response.code.to_i
+        body = { 'errors' => [{ 'status' => status.to_s, 'title' => 'Unexpected response',
+                                'detail' => "Response from DWP was not JSON (HTTP #{status})" }] }
+        raise HwfDwpApiError.new(body.to_json, status >= 500 ? :service_unavailable : :standard_error)
       end
 
       def parse_standard_error_response
