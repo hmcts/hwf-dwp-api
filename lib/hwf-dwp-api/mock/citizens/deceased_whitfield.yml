@@ -1,0 +1,84 @@
+# Date of death scenarios: died 2026-09-20 with a Universal Credit claim that DWP closed on
+# the date of death (endReason death_of_an_applicant), awards up to the death, take home pay £0.
+citizen:
+  internal_id: "citizen_022"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Whitfield"
+    dateOfBirth: "1957-02-11"
+    firstName: "Arthur"
+    ninoFragment: "7704"
+    nino: "JC127704D"
+    postcode: "NR2 1AB"
+  details:
+    nino: "JC127704D"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Arthur"
+      lastName: "Whitfield"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1957-02-11"
+    dateOfBirth:
+      date: "1957-02-11"
+      metadata:
+        verificationType: "authoritative"
+    dateOfDeath:
+      date: "2026-09-20"
+      metadata:
+        verificationType: "authoritative"
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2024-02-01"
+      endDate: "2026-09-20"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      endReason: "death_of_an_applicant"
+      periodicity: "calendar_monthly"
+      status: "claim_closed"
+      awards:
+        - startDate: "2026-07-01"
+          endDate: "2026-07-31"
+          status: "live"
+          amount: 40014
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 0
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 40014
+        - startDate: "2026-08-01"
+          endDate: "2026-08-31"
+          status: "live"
+          amount: 40014
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 0
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 40014
+        - startDate: "2026-09-01"
+          endDate: "2026-09-20"
+          status: "live"
+          amount: 26676
+          awardType: "fixed_period"
+          isJointClaim: false
+          endReason: "death_of_client"
+          assessmentAttributes:
+            takeHomePay: 0
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 26676

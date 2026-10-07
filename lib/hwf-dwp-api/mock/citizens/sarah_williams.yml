@@ -6,12 +6,12 @@ citizen:
     dateOfBirth: "1978-12-03"
     firstName: "Sarah"
     ninoFragment: "9012"
-    nino: "EF901234B"
+    nino: "JC129012A"
     postcode: "LS1 1BA"
     contactDetails:
       - "07700900456"
   details:
-    nino: "EF901234B"
+    nino: "JC129012A"
     sex: "F"
     statusIndicator: false
     identityVerificationStatus: "verified"

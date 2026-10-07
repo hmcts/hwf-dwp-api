@@ -1,0 +1,36 @@
+# Date of death scenarios: died 2026-09-15, no claims. Valid for an application dated 15/09/2026 or later; recorded as invalid_date_of_death for an earlier application date.
+citizen:
+  internal_id: "citizen_016"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Hollis"
+    dateOfBirth: "1951-11-02"
+    firstName: "George"
+    ninoFragment: "7702"
+    nino: "JC127702B"
+    postcode: "DH1 3LE"
+  details:
+    nino: "JC127702B"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "George"
+      lastName: "Hollis"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1951-11-02"
+    dateOfBirth:
+      date: "1951-11-02"
+      metadata:
+        verificationType: "authoritative"
+    dateOfDeath:
+      date: "2026-09-15"
+      metadata:
+        verificationType: "authoritative"
+  claims: []

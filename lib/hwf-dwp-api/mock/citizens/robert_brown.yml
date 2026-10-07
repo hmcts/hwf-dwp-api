@@ -6,12 +6,12 @@ citizen:
     dateOfBirth: "1992-04-18"
     firstName: "Robert"
     ninoFragment: "5678"
-    nino: "GH567890C"
+    nino: "JC125678A"
     postcode: "B1 1BB"
     contactDetails:
       - "07700900789"
   details:
-    nino: "GH567890C"
+    nino: "JC125678A"
     sex: "M"
     statusIndicator: false
     identityVerificationStatus: "verified"

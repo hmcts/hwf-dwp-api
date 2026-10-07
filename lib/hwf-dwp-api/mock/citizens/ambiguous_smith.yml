@@ -6,12 +6,12 @@ citizen:
     dateOfBirth: "1985-06-15"
     firstName: "Janet"
     ninoFragment: "4455"
-    nino: "MN445566C"
+    nino: "JC124455A"
     postcode: "E1 6AN"
     contactDetails:
       - "07700900999"
   details:
-    nino: "MN445566C"
+    nino: "JC124455A"
     sex: "F"
     statusIndicator: false
     identityVerificationStatus: "verified"

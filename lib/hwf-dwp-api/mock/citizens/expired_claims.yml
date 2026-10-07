@@ -6,12 +6,12 @@ citizen:
     dateOfBirth: "1975-02-14"
     firstName: "David"
     ninoFragment: "8901"
-    nino: "KL890123B"
+    nino: "JC128901A"
     postcode: "L1 1AA"
     contactDetails:
       - "07700900654"
   details:
-    nino: "KL890123B"
+    nino: "JC128901A"
     sex: "M"
     statusIndicator: false
     identityVerificationStatus: "verified"

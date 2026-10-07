@@ -6,13 +6,13 @@ citizen:
     dateOfBirth: "1990-01-15"
     firstName: "Michael"
     ninoFragment: "3456"
-    nino: "QQ123456C"
+    nino: "JC113456A"
     postcode: "NE6 1EA"
     contactDetails:
       - "07786557896"
       - "michael.clarke@example.com"
   details:
-    nino: "QQ123456C"
+    nino: "JC113456A"
     sex: "M"
     statusIndicator: false
     identityVerificationStatus: "verified"
