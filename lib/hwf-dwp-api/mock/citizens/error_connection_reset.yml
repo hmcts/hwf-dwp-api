@@ -9,4 +9,5 @@ citizen:
     firstName: "Reuben"
     ninoFragment: "7803"
     nino: "JC127803C"
+    postcode: "SA1 3SN"
   claims: []

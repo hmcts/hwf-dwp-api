@@ -226,10 +226,10 @@ The outcome is what the HwF staff app returns for each citizen under its RST-836
 | RST-8365 | Jamal Whitaker | 05/08/1987 | JC836510B | SO14 7DW | Universal Credit, active from 16/06/2026<br>Income Support, closed 01/06/2026 to 15/06/2026 | £745<br>£846.80 | £410.50<br>– | Yes | 16/06/2026 onwards | The Universal Credit claim passes |
 | RST-8365 | Keira Donnelly | 21/10/1992 | JC836511C | G2 3BZ | Universal Credit, closed 01/06/2026 to 15/06/2026<br>JSA (income-based), active from 16/06/2026 | £745<br>£2,100 | £410.50<br>– | Yes | 16/06/2026 onwards | The JSA claim passes |
 | RST-8365 | Liam Ashworth | 28/05/1980 | JC836512D | PL1 2AA | Carer's Allowance, active from 01/03/2026 | £333.20 | – | No | Never | Carer's Allowance is not a listed benefit |
-| DWP error | Oliver Grant | 19/05/1983 | JC127801A | Any | The match call times out | – | – | Error | Never | Staff app: Server unavailable |
-| DWP error | Hana Novak | 23/10/1979 | JC127802B | Any | The DWP host cannot be resolved | – | – | Error | Never | Staff app: Server unavailable |
-| DWP error | Reuben Stone | 30/01/1990 | JC127803C | Any | The connection is reset | – | – | Error | Never | Staff app: Server unavailable |
-| DWP error | Isla Ferris | 08/08/1986 | JC127804D | Any | A gateway answers with an HTML 502 page | – | – | Error | Never | Staff app: Technical fault |
+| DWP error | Oliver Grant | 19/05/1983 | JC127801A | BA1 1LZ | The match call times out | – | – | Error | Never | Staff app: Server unavailable |
+| DWP error | Hana Novak | 23/10/1979 | JC127802B | OX1 1DP | The DWP host cannot be resolved | – | – | Error | Never | Staff app: Server unavailable |
+| DWP error | Reuben Stone | 30/01/1990 | JC127803C | SA1 3SN | The connection is reset | – | – | Error | Never | Staff app: Server unavailable |
+| DWP error | Isla Ferris | 08/08/1986 | JC127804D | EH1 1YZ | A gateway answers with an HTML 502 page | – | – | Error | Never | Staff app: Technical fault |
 | Demo sandbox | Samantha Smith | 01/02/1981 | Any | AB12 5AJ | Universal Credit, in payment from 28/08/2024 | £878.05 | £0 | Yes, past dates only | 28/08/2024 to 08/03/2026 | The only award ended 29/01/2026 |
 | Demo sandbox | Aly Turing | 01/03/2000 | Any | PH1 1BD | Universal Credit, in payment from 28/10/2022 | £890.19, £802.26, £824.07, £824.07 | £900, £0, £900, £0 | Yes, past dates only | 28/04/2023 to 02/07/2023, and 28/09/2023 to 03/12/2023 | The awards are all from 2023; two of the four have take-home pay of £900 |
 | Demo sandbox | Farah Parveen | 05/01/1949 | Any | G1 5LE | Pension Credit, active from 05/07/2025 | £50 | – | Yes | 05/07/2025 onwards |  |
