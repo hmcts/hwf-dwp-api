@@ -1,0 +1,60 @@
+# Name variants: DWP holds the middle name with the first name, Priya Kaur Gill. Typed as "Priya" / "Kaur Gill", the third try (leading part of the last name moved to the first name) matches.
+citizen:
+  internal_id: "citizen_028"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Gill"
+    dateOfBirth: "1988-06-15"
+    firstName: "Priya Kaur"
+    ninoFragment: "7904"
+    nino: "JC127904D"
+    postcode: "B19 2JD"
+    contactDetails:
+      - "077009007904"
+  details:
+    nino: "JC127904D"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mrs"
+      firstName: "Priya Kaur"
+      lastName: "Gill"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1988-06-15"
+    dateOfBirth:
+      date: "1988-06-15"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "077009007904"
+        preferredContactIndicator: true
+  # Income Support in payment since 01/02/2024, so a Yes once the name is matched
+  claims:
+    - benefitType: "income_support"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 9050
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 9050
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"

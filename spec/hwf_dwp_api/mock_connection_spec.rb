@@ -265,6 +265,46 @@ RSpec.describe HwfDwpApi, 'mock connection' do
     end
   end
 
+  # name_variant_*.yml: found only once the staff app moves a word between first and last name
+  describe 'name variant test citizens' do
+    def guid(first_name, last_name, date_of_birth)
+      response = connection.match_citizen(first_name: first_name, last_name: last_name, date_of_birth: date_of_birth)
+      response.dig('data', 'id')
+    end
+
+    def not_found?(first_name, last_name, date_of_birth)
+      error_from { guid(first_name, last_name, date_of_birth) }&.error_type == :not_found
+    end
+
+    it 'Hale: matches once the middle name is dropped' do
+      expect(not_found?('Oliver James', 'Hale', '1986-04-07')).to be true
+      expect(guid('Oliver', 'Hale', '1986-04-07')).to eq 'mock-dwp-citizen_025'
+    end
+
+    it 'Thornton: matches once the middle name is joined to the last name' do
+      expect(not_found?('Grace Marie', 'Thornton', '1992-09-23')).to be true
+      expect(not_found?('Grace', 'Thornton', '1992-09-23')).to be true
+      expect(guid('Grace', 'Marie Thornton', '1992-09-23')).to eq 'mock-dwp-citizen_026'
+    end
+
+    it 'Reyes: matches once the leading part of the last name is dropped' do
+      expect(not_found?('Carlos', 'De Reyes', '1979-11-02')).to be true
+      expect(guid('Carlos', 'Reyes', '1979-11-02')).to eq 'mock-dwp-citizen_027'
+    end
+
+    it 'Gill: matches once the leading part of the last name is moved to the first name' do
+      expect(not_found?('Priya', 'Kaur Gill', '1988-06-15')).to be true
+      expect(not_found?('Priya', 'Gill', '1988-06-15')).to be true
+      expect(guid('Priya Kaur', 'Gill', '1988-06-15')).to eq 'mock-dwp-citizen_028'
+    end
+
+    it 'have a claim in payment, so the check is a Yes once matched' do
+      claims = connection.get_claims('mock-dwp-citizen_025', window)['data']
+
+      expect(claims.first.dig('attributes', 'status')).to eq 'in_payment'
+    end
+  end
+
   describe 'test citizens' do
     let(:citizens) { HwfDwpApi::Mock::TestCitizens.all }
 

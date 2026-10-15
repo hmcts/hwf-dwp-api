@@ -1,0 +1,60 @@
+# Name variants: DWP holds Carlos Reyes without the particle. Typed as "Carlos" / "De Reyes", the first try is not found and the second (leading part of the last name dropped) matches.
+citizen:
+  internal_id: "citizen_027"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Reyes"
+    dateOfBirth: "1979-11-02"
+    firstName: "Carlos"
+    ninoFragment: "7903"
+    nino: "JC127903C"
+    postcode: "CF24 0AB"
+    contactDetails:
+      - "077009007903"
+  details:
+    nino: "JC127903C"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Carlos"
+      lastName: "Reyes"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1979-11-02"
+    dateOfBirth:
+      date: "1979-11-02"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "077009007903"
+        preferredContactIndicator: true
+  # Income Support in payment since 01/02/2024, so a Yes once the name is matched
+  claims:
+    - benefitType: "income_support"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 9050
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 9050
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"

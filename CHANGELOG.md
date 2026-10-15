@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.3] - 2026-10-15
+
+### Added
+
+- Four "Name variants" mock citizens (Hale, Thornton, Reyes, Gill), each found by exactly one of the name splits the staff app now tries after a "not found" (middle name dropped or joined to the last name; a two word last name cut to its last word or its leading part moved to the first name). The mock already compared the first name when both sides had one, so no matching change was needed.
+
 ## [0.4.2] - 2026-10-07
 
 ### Added
