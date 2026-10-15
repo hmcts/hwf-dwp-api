@@ -240,12 +240,6 @@ The outcome is what the HwF staff app returns for each citizen under its RST-836
 | Name variants | Grace Marie Thornton | 23/09/1992 | JC127902B | EX4 3PL | Income Support, in payment from 01/02/2024 | £90.50 | – | Yes | 01/02/2024 onwards | DWP holds first name "Grace", last name "Marie Thornton". Type "Grace Marie" / "Thornton": matched on the third try (middle name joined to the last name) |
 | Name variants | Carlos Reyes | 02/11/1979 | JC127903C | CF24 0AB | Income Support, in payment from 01/02/2024 | £90.50 | – | Yes | 01/02/2024 onwards | Type "Carlos" / "De Reyes": matched on the second try (leading part of the last name dropped) |
 | Name variants | Priya Kaur Gill | 15/06/1988 | JC127904D | B19 2JD | Income Support, in payment from 01/02/2024 | £90.50 | – | Yes | 01/02/2024 onwards | DWP holds first name "Priya Kaur", last name "Gill". Type "Priya" / "Kaur Gill": matched on the third try (leading part of the last name moved to the first name) |
-| Demo sandbox | Samantha Smith | 01/02/1981 | Any | AB12 5AJ | Universal Credit, in payment from 28/08/2024 | £878.05 | £0 | Yes, past dates only | 28/08/2024 to 08/03/2026 | The only award ended 29/01/2026 |
-| Demo sandbox | Aly Turing | 01/03/2000 | Any | PH1 1BD | Universal Credit, in payment from 28/10/2022 | £890.19, £802.26, £824.07, £824.07 | £900, £0, £900, £0 | Yes, past dates only | 28/04/2023 to 02/07/2023, and 28/09/2023 to 03/12/2023 | The awards are all from 2023; two of the four have take-home pay of £900 |
-| Demo sandbox | Farah Parveen | 05/01/1949 | Any | G1 5LE | Pension Credit, active from 05/07/2025 | £50 | – | Yes | 05/07/2025 onwards |  |
-| Demo sandbox | Richard Edwards | 02/05/1943 | Any | Leave blank | Universal Credit, suspended from 18/10/2025 | £2,187.44 | £100 | No | Never | Stored postcode "L70 JQ" is not a valid format |
-| Demo sandbox | Lisa Leeks | 26/04/1956 | Any | PO9 5TG | Pension Credit, status "decision_entitled" from 23/08/2024 | £86.54 | – | No | Never |  |
-| Demo sandbox | Andrew Connelly | 03/12/1992 | Any | G33 1GH | ESA (income-based), no claim status, live award from 01/01/2021 | £85 | – | Yes | 01/01/2021 onwards | No claim status, so the live award decides |
 
 Using them in the staff app:
 
