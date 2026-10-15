@@ -1,0 +1,60 @@
+# Name variants: DWP holds Oliver Hale. Typed as first name "Oliver James", last name "Hale", the first try is not found and the second (middle name dropped) matches.
+citizen:
+  internal_id: "citizen_025"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Hale"
+    dateOfBirth: "1986-04-07"
+    firstName: "Oliver"
+    ninoFragment: "7901"
+    nino: "JC127901A"
+    postcode: "LS2 7HT"
+    contactDetails:
+      - "077009007901"
+  details:
+    nino: "JC127901A"
+    sex: "M"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Mr"
+      firstName: "Oliver"
+      lastName: "Hale"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1986-04-07"
+    dateOfBirth:
+      date: "1986-04-07"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "077009007901"
+        preferredContactIndicator: true
+  # Income Support in payment since 01/02/2024, so a Yes once the name is matched
+  claims:
+    - benefitType: "income_support"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 9050
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 9050
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"

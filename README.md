@@ -236,17 +236,15 @@ The outcome is what the HwF staff app returns for each citizen under its RST-836
 | Date of death | Arthur Whitfield | 11/02/1957 | JC127704D | NR2 1AB | Universal Credit, closed on the date of death 20/09/2026 (endReason death_of_an_applicant); died 20/09/2026 | £400.14, £400.14, £266.76 | £0, £0, £0 | No | Never | Flagged for an application dated 20/09/2026 or later; before that the closed claim gives No |
 | Date of death | Ruth Calder | 04/07/1962 | JC127705A | TR1 2HD | Income Support, active from 15/05/2023, not closed by DWP; died 28/09/2026 | £92.90 | – | Yes, until the death | 07/04/2025 to 27/09/2026 | Flagged for an application dated 28/09/2026 or later; before that the open claim gives Yes |
 | Date of death | Dennis Harker | 30/12/1971 | JC127706B | HU1 3DZ | JSA (income-based), closed on the date of death 15/06/2026; died 15/06/2026 | £90.05 | – | No | Never | Flagged for an application dated 15/06/2026 or later; before that the closed claim gives No |
-| Demo sandbox | Samantha Smith | 01/02/1981 | Any | AB12 5AJ | Universal Credit, in payment from 28/08/2024 | £878.05 | £0 | Yes, past dates only | 28/08/2024 to 08/03/2026 | The only award ended 29/01/2026 |
-| Demo sandbox | Aly Turing | 01/03/2000 | Any | PH1 1BD | Universal Credit, in payment from 28/10/2022 | £890.19, £802.26, £824.07, £824.07 | £900, £0, £900, £0 | Yes, past dates only | 28/04/2023 to 02/07/2023, and 28/09/2023 to 03/12/2023 | The awards are all from 2023; two of the four have take-home pay of £900 |
-| Demo sandbox | Farah Parveen | 05/01/1949 | Any | G1 5LE | Pension Credit, active from 05/07/2025 | £50 | – | Yes | 05/07/2025 onwards |  |
-| Demo sandbox | Richard Edwards | 02/05/1943 | Any | Leave blank | Universal Credit, suspended from 18/10/2025 | £2,187.44 | £100 | No | Never | Stored postcode "L70 JQ" is not a valid format |
-| Demo sandbox | Lisa Leeks | 26/04/1956 | Any | PO9 5TG | Pension Credit, status "decision_entitled" from 23/08/2024 | £86.54 | – | No | Never |  |
-| Demo sandbox | Andrew Connelly | 03/12/1992 | Any | G33 1GH | ESA (income-based), no claim status, live award from 01/01/2021 | £85 | – | Yes | 01/01/2021 onwards | No claim status, so the live award decides |
+| Name variants | Oliver Hale | 07/04/1986 | JC127901A | LS2 7HT | Income Support, in payment from 01/02/2024 | £90.50 | – | Yes | 01/02/2024 onwards | Type first name "Oliver James", last name "Hale": not found as typed, matched on the second try (middle name dropped) |
+| Name variants | Grace Marie Thornton | 23/09/1992 | JC127902B | EX4 3PL | Income Support, in payment from 01/02/2024 | £90.50 | – | Yes | 01/02/2024 onwards | DWP holds first name "Grace", last name "Marie Thornton". Type "Grace Marie" / "Thornton": matched on the third try (middle name joined to the last name) |
+| Name variants | Carlos Reyes | 02/11/1979 | JC127903C | CF24 0AB | Income Support, in payment from 01/02/2024 | £90.50 | – | Yes | 01/02/2024 onwards | Type "Carlos" / "De Reyes": matched on the second try (leading part of the last name dropped) |
+| Name variants | Priya Kaur Gill | 15/06/1988 | JC127904D | B19 2JD | Income Support, in payment from 01/02/2024 | £90.50 | – | Yes | 01/02/2024 onwards | DWP holds first name "Priya Kaur", last name "Gill". Type "Priya" / "Kaur Gill": matched on the third try (leading part of the last name moved to the first name) |
 
 Using them in the staff app:
 
 - **Application date** is the date received (paper), the date fee paid (refund) or the day it was created (online).
-- **First name, last name and DOB** must match exactly as shown (case does not matter).
+- **First name, last name and DOB** must match exactly as shown (case does not matter). The Name variants group is the exception: type the names as the Notes column says.
 - **NI number**: use the one shown, or leave it blank. Only its last four digits are sent, as the NI number fragment.
 - **Postcode** is optional, but must match if entered.
 - **RST-8365** examples were written for an application date of 13/07/2026.
@@ -258,6 +256,7 @@ Things to know:
 - **A claim with no status of its own** (Andrew Connelly) is decided on its `live` award.
 - **Date of death** is only on the citizen record (`get_citizen`), which the staff app fetches after every match, before the claims. A date on or before the application date is *flagged*: the check is No with `date_of_death_flagged`, whatever the claims say. A later date, or a badly formatted one, is not flagged and the claims decide. Everyone outside the "Date of death" group has no date of death.
 - **The DWP error citizens** fail when they are matched, through the gem's normal error handling, so the staff app sees exactly what a real timeout, DNS failure, reset or bad gateway would give. Five such checks in a row take the staff app's DWP banner offline. A citizen's YAML opts in with `simulate_failure: timeout | dns | connection_reset | gateway_error`.
+- **The Name variants citizens** are for the staff app's retry when DWP finds nobody: it sends the same person again with the words split differently between first and last name (middle name dropped, then joined to the last name; a two word last name cut to its last word, then its leading part moved to the first name), at most five requests. Each of the four is found by exactly one of those splits, so the staff app records the failed tries and the match as separate `match_citizen` calls. The mock compares the first name when both sides have one, as DWP does.
 - **NI numbers match the citizen record.** Each citizen's `nino` (in the match attributes and in the record `get_citizen` returns) is the one in this table, is a valid NI number and ends in the citizen's `ninoFragment`.
 
 ### RST-8365 example data

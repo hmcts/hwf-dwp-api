@@ -1,0 +1,60 @@
+# Name variants: DWP holds the middle name as part of the last name, Grace Marie Thornton. Typed as "Grace Marie" / "Thornton", the third try (middle name joined to the last name) matches.
+citizen:
+  internal_id: "citizen_026"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Marie Thornton"
+    dateOfBirth: "1992-09-23"
+    firstName: "Grace"
+    ninoFragment: "7902"
+    nino: "JC127902B"
+    postcode: "EX4 3PL"
+    contactDetails:
+      - "077009007902"
+  details:
+    nino: "JC127902B"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Grace"
+      lastName: "Marie Thornton"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1992-09-23"
+    dateOfBirth:
+      date: "1992-09-23"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "077009007902"
+        preferredContactIndicator: true
+  # Income Support in payment since 01/02/2024, so a Yes once the name is matched
+  claims:
+    - benefitType: "income_support"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 9050
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 9050
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"
