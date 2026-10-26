@@ -1,0 +1,34 @@
+# Sparse record: the citizen record carries only the guid and links, as production DWP returned on 26/10/2026. No details, so the staff app has nothing to check and the claims decide.
+citizen:
+  internal_id: "citizen_029"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Brooks"
+    dateOfBirth: "1983-02-11"
+    firstName: "Nadia"
+    ninoFragment: "8001"
+    nino: "JC128001A"
+    postcode: "DE1 2AB"
+  # Income Support in payment since 01/02/2024, so a Yes
+  claims:
+    - benefitType: "income_support"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 9050
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 9050
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"

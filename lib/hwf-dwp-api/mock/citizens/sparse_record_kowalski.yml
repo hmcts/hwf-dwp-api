@@ -1,0 +1,36 @@
+# Sparse record: the citizen record carries only an NI number, and it is not the one typed (same last four digits, so the match still succeeds). The staff app treats the mismatch as no match and never reads the claims.
+citizen:
+  internal_id: "citizen_031"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Kowalski"
+    dateOfBirth: "1990-12-05"
+    firstName: "Elena"
+    ninoFragment: "8003"
+    nino: "JC128003C"
+    postcode: "PR1 2HE"
+  details:
+    nino: "JC998003C"
+  # Income Support in payment since 01/02/2024, but never reached: the NI number mismatch stops the check
+  claims:
+    - benefitType: "income_support"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 9050
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 9050
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"

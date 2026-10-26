@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.4] - 2026-10-26
+
+### Added
+
+- Four "Sparse record" mock citizens (Brooks, Ingram, Kowalski, Fenwick) whose citizen record carries some or none of the identity fields, as production DWP returned on 26/10/2026 (guid and links only). Brooks has no `details` at all and Ingram only a matching NI number, so the staff app reads the claims; Kowalski's NI number and Fenwick's surname differ from what was typed, so it does not. The mock already returned the guid alone for a citizen without `details`, so no responder change was needed.
+
 ## [0.4.3] - 2026-10-15
 
 ### Added

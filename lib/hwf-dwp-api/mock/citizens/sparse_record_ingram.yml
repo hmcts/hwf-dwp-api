@@ -1,0 +1,36 @@
+# Sparse record: the citizen record carries only the NI number, which agrees with the one typed. No name or date of birth to check, so the claims decide.
+citizen:
+  internal_id: "citizen_030"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Ingram"
+    dateOfBirth: "1976-09-30"
+    firstName: "Samuel"
+    ninoFragment: "8002"
+    nino: "JC128002B"
+    postcode: "WV1 1SH"
+  details:
+    nino: "JC128002B"
+  # Income Support in payment since 01/02/2024, so a Yes
+  claims:
+    - benefitType: "income_support"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 9050
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 9050
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"
