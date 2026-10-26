@@ -1,0 +1,41 @@
+# Sparse record: the citizen record has the name and date of birth but no NI number, and DWP holds the surname double-barrelled. The date of birth agrees, the last name does not, so the staff app treats it as no match.
+citizen:
+  internal_id: "citizen_032"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Fenwick"
+    dateOfBirth: "1968-05-22"
+    firstName: "Tobias"
+    ninoFragment: "8004"
+    nino: "JC128004D"
+    postcode: "TQ1 3DR"
+  details:
+    name:
+      title: "Mr"
+      firstName: "Tobias"
+      lastName: "Fenwick-Reid"
+    dateOfBirth:
+      date: "1968-05-22"
+  # Income Support in payment since 01/02/2024, but never reached: the last name mismatch stops the check
+  claims:
+    - benefitType: "income_support"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "weekly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 9050
+          awardType: "fixed_period"
+          isJointClaim: false
+          awardComponents:
+            - type: "care"
+              subType: "personal_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 9050
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"

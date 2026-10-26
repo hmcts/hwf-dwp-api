@@ -305,6 +305,44 @@ RSpec.describe HwfDwpApi, 'mock connection' do
     end
   end
 
+  # sparse_record_*.yml: citizen records with some or none of the identity fields, as production returns
+  describe 'sparse record test citizens' do
+    def attributes(guid)
+      connection.get_citizen(guid).dig('data', 'attributes')
+    end
+
+    it 'Brooks: the record holds the guid alone' do
+      expect(attributes('mock-dwp-citizen_029')).to eq('guid' => 'mock-dwp-citizen_029')
+    end
+
+    it 'Ingram: the record holds only the NI number that was matched' do
+      expect(attributes('mock-dwp-citizen_030')).to eq('guid' => 'mock-dwp-citizen_030', 'nino' => 'JC128002B')
+    end
+
+    it 'Kowalski: the record holds only an NI number with the same last four digits' do
+      expect(attributes('mock-dwp-citizen_031')).to eq('guid' => 'mock-dwp-citizen_031', 'nino' => 'JC998003C')
+    end
+
+    it 'Fenwick: the record holds the date of birth and a double-barrelled surname, no NI number' do
+      record = attributes('mock-dwp-citizen_032')
+
+      expect(record.keys).to contain_exactly('guid', 'name', 'dateOfBirth')
+      expect(record.dig('name', 'lastName')).to eq 'Fenwick-Reid'
+    end
+
+    it 'are all matched by last name and date of birth' do
+      response = connection.match_citizen(last_name: 'Brooks', date_of_birth: '1983-02-11')
+
+      expect(response.dig('data', 'id')).to eq 'mock-dwp-citizen_029'
+    end
+
+    it 'have a claim in payment, so the claims give a Yes when they are read' do
+      claims = connection.get_claims('mock-dwp-citizen_029', window)['data']
+
+      expect(claims.first.dig('attributes', 'status')).to eq 'in_payment'
+    end
+  end
+
   describe 'test citizens' do
     let(:citizens) { HwfDwpApi::Mock::TestCitizens.all }
 
