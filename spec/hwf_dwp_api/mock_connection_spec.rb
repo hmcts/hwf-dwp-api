@@ -343,6 +343,46 @@ RSpec.describe HwfDwpApi, 'mock connection' do
     end
   end
 
+  # take_home_pay_*.yml: monthly awards each under £500; what counts is their total inside the date window
+  describe 'take-home pay total test citizens' do
+    let(:window) { { effective_from: '2026-06-08', effective_to: '2026-07-13' } }
+
+    def take_home_pay_in_window(guid)
+      awards = connection.get_claims(guid, window)['data'].first.dig('attributes', 'awards')
+      in_window = awards.select do |award|
+        award['startDate'] <= window[:effective_to] && award['endDate'] >= window[:effective_from]
+      end
+
+      in_window.map { |award| award.dig('assessmentAttributes', 'takeHomePay') }
+    end
+
+    it 'Fletcher: two awards in the window, each under £500, adding up to over £500' do
+      match = connection.match_citizen(last_name: 'Fletcher', date_of_birth: '1989-04-12')
+      expect(match.dig('data', 'id')).to eq 'mock-dwp-take_home_pay_01'
+
+      pays = take_home_pay_in_window('mock-dwp-take_home_pay_01')
+      expect(pays).to eq [22_517, 39_699]
+      expect(pays.sum).to be >= 50_000
+    end
+
+    it 'Pritchard: two awards in the window adding up to under £500' do
+      pays = take_home_pay_in_window('mock-dwp-take_home_pay_02')
+
+      expect(pays).to eq [16_666, 16_666]
+      expect(pays.sum).to be < 50_000
+    end
+
+    it 'have a live award for every assessment period for a year' do
+      %w[mock-dwp-take_home_pay_01 mock-dwp-take_home_pay_02].each do |guid|
+        awards = connection.get_claims(guid, window)['data'].first.dig('attributes', 'awards')
+
+        expect(awards.size).to eq 12
+        expect(awards.map { |award| award['status'] }.uniq).to eq ['live']
+        expect(awards.map { |award| award.dig('assessmentAttributes', 'takeHomePay') }).to all(be < 50_000)
+      end
+    end
+  end
+
   describe 'test citizens' do
     let(:citizens) { HwfDwpApi::Mock::TestCitizens.all }
 
