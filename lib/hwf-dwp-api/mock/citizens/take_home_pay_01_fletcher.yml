@@ -1,0 +1,197 @@
+# Take-home pay total — expected benefit checker response: No. See README
+# Take home pay alternates £225.17 and £396.99: every award is under £500 on its own, but a 5 to 6
+# week date window always holds two awards, which add up to £622.16 (take_home_pay_over_limit).
+# The amounts are the live awards of a production Universal Credit claim seen in 2026.
+citizen:
+  internal_id: "take_home_pay_01"
+  matching_scenario: "scenario_1"
+  match_attributes:
+    lastName: "Fletcher"
+    dateOfBirth: "1989-04-12"
+    firstName: "Naomi"
+    ninoFragment: "6601"
+    nino: "JC836601A"
+    postcode: "SR1 3HA"
+    contactDetails:
+      - "07700900861"
+  details:
+    nino: "JC836601A"
+    sex: "F"
+    statusIndicator: false
+    identityVerificationStatus: "verified"
+    identityAtRiskIndicator: false
+    nifuIndicator: false
+    nationality:
+      nationality: "british"
+    name:
+      title: "Ms"
+      firstName: "Naomi"
+      lastName: "Fletcher"
+      metadata:
+        verificationType: "authoritative"
+        startDate: "1989-04-12"
+    dateOfBirth:
+      date: "1989-04-12"
+      metadata:
+        verificationType: "authoritative"
+    contactDetails:
+      - contactType: "personal_mobile_telephone_number"
+        value: "07700900861"
+        preferredContactIndicator: true
+  # UC claim active from 2026-03-23, one live award per assessment period (23rd to 22nd) to 2027-03-22.
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2026-03-23"
+      claimDate: "2026-03-16"
+      receiptDate: "2026-03-16"
+      entitlementStartDate: "2026-03-23"
+      periodicity: "calendar_monthly"
+      status: "active"
+      awards:
+        - startDate: "2026-03-23"
+          endDate: "2026-04-22"
+          status: "live"
+          amount: 61833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 22517
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 61833
+        - startDate: "2026-04-23"
+          endDate: "2026-05-22"
+          status: "live"
+          amount: 51833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 39699
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 51833
+        - startDate: "2026-05-23"
+          endDate: "2026-06-22"
+          status: "live"
+          amount: 61833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 22517
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 61833
+        - startDate: "2026-06-23"
+          endDate: "2026-07-22"
+          status: "live"
+          amount: 51833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 39699
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 51833
+        - startDate: "2026-07-23"
+          endDate: "2026-08-22"
+          status: "live"
+          amount: 61833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 22517
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 61833
+        - startDate: "2026-08-23"
+          endDate: "2026-09-22"
+          status: "live"
+          amount: 51833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 39699
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 51833
+        - startDate: "2026-09-23"
+          endDate: "2026-10-22"
+          status: "live"
+          amount: 61833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 22517
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 61833
+        - startDate: "2026-10-23"
+          endDate: "2026-11-22"
+          status: "live"
+          amount: 51833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 39699
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 51833
+        - startDate: "2026-11-23"
+          endDate: "2026-12-22"
+          status: "live"
+          amount: 61833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 22517
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 61833
+        - startDate: "2026-12-23"
+          endDate: "2027-01-22"
+          status: "live"
+          amount: 51833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 39699
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 51833
+        - startDate: "2027-01-23"
+          endDate: "2027-02-22"
+          status: "live"
+          amount: 61833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 22517
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 61833
+        - startDate: "2027-02-23"
+          endDate: "2027-03-22"
+          status: "live"
+          amount: 51833
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 39699
+          awardComponents:
+            - type: "other"
+              subType: "standard_allowance"
+              componentAwardAmount: 51833
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2026-03-23"

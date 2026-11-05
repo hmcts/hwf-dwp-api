@@ -6,6 +6,21 @@
 
 - Four "Sparse record" mock citizens (Brooks, Ingram, Kowalski, Fenwick) whose citizen record carries some or none of the identity fields, as production DWP returned on 26/10/2026 (guid and links only). Brooks has no `details` at all and Ingram only a matching NI number, so the staff app reads the claims; Kowalski's NI number and Fenwick's surname differ from what was typed, so it does not. The mock already returned the guid alone for a citizen without `details`, so no responder change was needed.
 
+<<<<<<< Updated upstream
+=======
+## Unreleased (gem-updates-v1)
+
+### Added
+
+- Two "Take-home pay total" mock citizens (Fletcher, Pritchard) with a live Universal Credit award for every monthly assessment period (23rd to 22nd) from 23/03/2026 to 22/03/2027, so the staff app's 5 to 6 week date window always holds two awards, or three when it straddles two period boundaries. Fletcher's take-home pay alternates £225.17 and £396.99 (the live awards of a production claim): each under £500, together £622.16 or more, so the check is a No. Pritchard's is £166.66 on every award: £333.32 or £499.98 together, a Yes. They exercise the staff app rule that adds up the take-home pay of every live award in the window.
+
+### Security
+
+- Development bundle only, nothing a consumer installs changes: erb 6.0.2 → 6.0.7
+  (CVE-2026-41316), json 2.19.2 → 3.1.0 (CVE-2026-54696), and rubocop 1.85.1 → 1.92.1,
+  which drops the mcp 0.13.0 dependency and its five advisories. No version bump needed.
+
+>>>>>>> Stashed changes
 ## [0.4.3] - 2026-10-15
 
 ### Added
