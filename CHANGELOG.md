@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Mock: `get_claims` now returns only the awards that were live inside the date window, as it already did for claims. An award that started after `effectiveToDate` or ended before `effectiveFromDate` is left out, so a claim can come back with an empty `awards` list. Without a window every award is still returned.
+
 ## [0.4.4] - 2026-10-26
 
 ### Added
