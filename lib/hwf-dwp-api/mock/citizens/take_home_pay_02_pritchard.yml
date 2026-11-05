@@ -1,7 +1,6 @@
 # Take-home pay total — expected benefit checker response: Yes. See README
-# Same claim and award dates as Naomi Fletcher, take home pay £166.66 on every award: the two awards in
-# a 5 week date window add up to £333.32 and the three in a window that straddles two period
-# boundaries to £499.98, both under the £500 limit.
+# Same claim and award dates as Naomi Fletcher, take home pay £166.66 on every award: Yes whether the
+# newest award decides or the two or three awards in the window are added up (£333.32 or £499.98).
 citizen:
   internal_id: "take_home_pay_02"
   matching_scenario: "scenario_1"

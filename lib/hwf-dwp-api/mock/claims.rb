@@ -22,7 +22,10 @@ module HwfDwpApi
         benefit_types = Array(query['benefitType'])
         claims = claims.select { |claim| benefit_types.include?(claim['benefitType']) } unless benefit_types.empty?
 
-        in_window(claims, date(query['effectiveFromDate']), date(query['effectiveToDate']))
+        window_from = date(query['effectiveFromDate'])
+        window_to = date(query['effectiveToDate'])
+
+        in_window(claims, window_from, window_to).map { |claim| with_awards_in_window(claim, window_from, window_to) }
       end
 
       # DWP returns the claims live inside the window, or only open claims when there is no window
@@ -30,6 +33,13 @@ module HwfDwpApi
         return claims.select { |claim| date(claim['endDate']).nil? } if window_from.nil? && window_to.nil?
 
         claims.reject { |claim| ended_before?(claim, window_from) || started_after?(claim, window_to) }
+      end
+
+      # Likewise only the awards live inside the window; without a window every award comes back
+      def with_awards_in_window(claim, window_from, window_to)
+        return claim if claim['awards'].nil? || (window_from.nil? && window_to.nil?)
+
+        claim.merge('awards' => in_window(claim['awards'], window_from, window_to))
       end
 
       def ended_before?(claim, window_from)

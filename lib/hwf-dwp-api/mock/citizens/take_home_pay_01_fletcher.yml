@@ -1,6 +1,7 @@
-# Take-home pay total — expected benefit checker response: No. See README
-# Take home pay alternates £225.17 and £396.99: every award is under £500 on its own, but a 5 to 6
-# week date window always holds two awards, which add up to £622.16 (take_home_pay_over_limit).
+# Take-home pay total — expected benefit checker response: Yes (RST-8790). See README
+# Take home pay alternates £225.17 and £396.99: every award is under £500 on its own, and a 5 to 6
+# week date window holds two or three of them, £622.16 or more together. The newest live award
+# returned decides, so the check is a Yes; under the dwp-fix total it was a No.
 # The amounts are the live awards of a production Universal Credit claim seen in 2026.
 citizen:
   internal_id: "take_home_pay_01"

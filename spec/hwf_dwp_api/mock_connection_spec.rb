@@ -137,6 +137,34 @@ RSpec.describe HwfDwpApi, 'mock connection' do
       expect(response['data'].first.dig('attributes', 'endDate')).to eq '2026-08-21'
     end
 
+    # demo_turing.yml - four monthly awards, 2023-03-28 to 2023-05-27 and 2023-08-28 to 2023-10-27
+    it 'leaves out the awards that were not live inside the window' do
+      claim = connection.get_claims('mock-dwp-demo_turing', effective_from: '2023-03-01',
+                                                            effective_to: '2023-05-31')['data'].first
+
+      expect(claim.dig('attributes', 'awards').map { |award| award['startDate'] }).to eq %w[2023-03-28 2023-04-28]
+    end
+
+    it 'returns an award that straddles the start of the window' do
+      claim = connection.get_claims('mock-dwp-demo_turing', effective_from: '2023-04-10',
+                                                            effective_to: '2023-04-20')['data'].first
+
+      expect(claim.dig('attributes', 'awards').map { |award| award['startDate'] }).to eq %w[2023-03-28]
+    end
+
+    it 'returns a claim with no awards when none fall inside the window' do
+      claim = connection.get_claims('mock-dwp-demo_turing', effective_from: '2023-06-01',
+                                                            effective_to: '2023-06-30')['data'].first
+
+      expect(claim.dig('attributes', 'awards')).to eq []
+    end
+
+    it 'returns every award when there is no window' do
+      claim = connection.get_claims('mock-dwp-demo_turing')['data'].first
+
+      expect(claim.dig('attributes', 'awards').size).to eq 4
+    end
+
     it 'returns only open claims when there is no window' do
       error = error_from { connection.get_claims('mock-dwp-citizen_013') }
 
@@ -349,11 +377,8 @@ RSpec.describe HwfDwpApi, 'mock connection' do
 
     def take_home_pay_in_window(guid)
       awards = connection.get_claims(guid, window)['data'].first.dig('attributes', 'awards')
-      in_window = awards.select do |award|
-        award['startDate'] <= window[:effective_to] && award['endDate'] >= window[:effective_from]
-      end
 
-      in_window.map { |award| award.dig('assessmentAttributes', 'takeHomePay') }
+      awards.map { |award| award.dig('assessmentAttributes', 'takeHomePay') }
     end
 
     it 'Fletcher: two awards in the window, each under £500, adding up to over £500' do
@@ -374,7 +399,7 @@ RSpec.describe HwfDwpApi, 'mock connection' do
 
     it 'have a live award for every assessment period for a year' do
       %w[mock-dwp-take_home_pay_01 mock-dwp-take_home_pay_02].each do |guid|
-        awards = connection.get_claims(guid, window)['data'].first.dig('attributes', 'awards')
+        awards = connection.get_claims(guid)['data'].first.dig('attributes', 'awards')
 
         expect(awards.size).to eq 12
         expect(awards.map { |award| award['status'] }.uniq).to eq ['live']
