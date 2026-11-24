@@ -11,6 +11,9 @@ module HwfDwpApi
         citizen = TestCitizens.find_by_guid(guid)
         return Response.not_found('No citizen found for the supplied GUID') if citizen.nil?
 
+        error = ClaimsErrors.response(citizen)
+        return error if error
+
         claims = select_claims(citizen['claims'] || [], query.transform_keys(&:to_s))
         return Response.not_found('No claims found for the supplied criteria') if claims.empty?
 

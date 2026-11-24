@@ -1,0 +1,14 @@
+# DWP error codes: matched, then get_claims answers code 2000 (DWP internal error, HTTP 500) every time.
+# Staff app tries 3 times, then records Unspecified error; it counts toward DWP down.
+citizen:
+  internal_id: "citizen_033"
+  matching_scenario: "scenario_1"
+  simulate_claims_error: "2000"
+  match_attributes:
+    lastName: "Quinn"
+    dateOfBirth: "1984-03-12"
+    firstName: "Martha"
+    ninoFragment: "7805"
+    nino: "JC127805A"
+    postcode: "BS1 4ST"
+  claims: []

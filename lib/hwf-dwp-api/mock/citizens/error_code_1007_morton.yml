@@ -1,0 +1,14 @@
+# DWP error codes: matched, then get_claims answers code 1007 (claimant not resolved, HTTP 500) every time.
+# Staff app records Unspecified error straight away, no retry; it does not count toward DWP down.
+citizen:
+  internal_id: "citizen_035"
+  matching_scenario: "scenario_1"
+  simulate_claims_error: "1007"
+  match_attributes:
+    lastName: "Morton"
+    dateOfBirth: "1977-07-21"
+    firstName: "Leah"
+    ninoFragment: "7807"
+    nino: "JC127807C"
+    postcode: "CV1 5RW"
+  claims: []
