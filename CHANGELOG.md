@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- Mock: `simulate_claims_error` makes `get_claims` answer with DWP error code 2000, 2001 or 1007, with the error and HTTP status exactly as production DWP sent them (2000 and 1007: HTTP 500; 2001: HTTP 422), so the staff app's handling of each code can be tried on demo. `claims_error_times` makes it fail that many times and then return the claims, for the staff app's retry of 2000. Four "DWP error code" citizens use it: Quinn (2000), Barrow (2000 twice, then UC), Morton (1007) and Price (2001). The codes go on `get_claims`, as that is where production returned them.
+
 ### Changed
 
 - Mock: `get_claims` now returns only the awards that were live inside the date window, as it already did for claims. An award that started after `effectiveToDate` or ended before `effectiveFromDate` is left out, so a claim can come back with an empty `awards` list. Without a window every award is still returned.

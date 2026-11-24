@@ -244,6 +244,95 @@ RSpec.describe HwfDwpApi, 'mock connection' do
     end
   end
 
+  # error_code_*.yml: matched as normal, then get_claims answers with a DWP error code
+  describe 'DWP error code test citizens' do
+    let(:window) { { effective_from: '2026-01-05', effective_to: '2026-02-15' } }
+    # The errors exactly as production DWP sent them, stored as such in the staff app's error_message
+    let(:internal_error) do
+      { 'code' => '2000',
+        'detail' => 'Internal server error / failure. Please retry your request',
+        'id' => '1-72436ad4-6350-42ce-b958-d002131e7f8c',
+        'status' => '500',
+        'title' => 'Internal server error / failure. Please retry your request' }
+    end
+    let(:claimant_not_resolved) do
+      { 'code' => '1007',
+        'detail' => 'The service could not resolve a claimant from the parameters supplied',
+        'id' => '1-ff706b7f-c3d6-4efa-a886-2a0e4785e173',
+        'status' => '500',
+        'title' => 'Internal server error / failure. Please retry your request' }
+    end
+    let(:multiple_claims) do
+      { 'code' => '2001',
+        'detail' => 'Unexpected multiple active claim records exists. Please log a request with the DWP support.',
+        'id' => '1f41c854-fbfd-4849-b293-7333791004b8-universal_credit',
+        'status' => '422',
+        'title' => 'Unprocessable Content - The request was well-formed but was unable to be performed ' \
+                   'due to data error.' }
+    end
+
+    before { HwfDwpApi::Mock::ClaimsErrors.reset! }
+
+    def guid_of(last_name, date_of_birth)
+      connection.match_citizen(last_name: last_name, date_of_birth: date_of_birth).dig('data', 'id')
+    end
+
+    def first_error(error)
+      JSON.parse(error.message).dig('errors', 0)
+    end
+
+    {
+      'Quinn' => ['1984-03-12', 500, :internal_error],
+      'Morton' => ['1977-07-21', 500, :claimant_not_resolved],
+      'Price' => ['1993-11-02', 422, :multiple_claims]
+    }.each do |last_name, (date_of_birth, status, dwp_error)|
+      it "#{last_name}: get_claims answers #{dwp_error}, every time, as DWP sent it" do
+        guid = guid_of(last_name, date_of_birth)
+
+        2.times do
+          error = error_from { connection.get_claims(guid, window) }
+
+          expect(error.error_type).to eq :standard_error
+          expect(error.message).to eq({ errors: [send(dwp_error)] }.to_json)
+        end
+      end
+
+      it "#{last_name}: answers with HTTP #{status}" do
+        expect(HwfDwpApi::Mock::Claims.response(guid_of(last_name, date_of_birth), {}).code).to eq status
+      end
+    end
+
+    it 'Barrow: get_claims answers code 2000 twice, then returns the claims' do
+      guid = guid_of('Barrow', '1981-05-09')
+
+      errors = Array.new(2) { first_error(error_from { connection.get_claims(guid, window) }) }
+
+      expect(errors).to eq [internal_error, internal_error]
+      expect(connection.get_claims(guid, window).dig('data', 0, 'attributes', 'benefitType')).to eq 'universal_credit'
+    end
+
+    it 'Barrow: starts failing again after the claims are returned, so the next check behaves the same' do
+      guid = guid_of('Barrow', '1981-05-09')
+      2.times { error_from { connection.get_claims(guid, window) } }
+      connection.get_claims(guid, window)
+
+      expect(error_from { connection.get_claims(guid, window) }).not_to be_nil
+    end
+
+    it 'leaves the match and the citizen record alone' do
+      guid = guid_of('Quinn', '1984-03-12')
+
+      expect(guid).to eq 'mock-dwp-citizen_033'
+      expect(connection.get_citizen(guid).dig('data', 'id')).to eq guid
+    end
+
+    it 'rejects an unknown code' do
+      citizen = { 'internal_id' => 'x', 'simulate_claims_error' => '9999' }
+
+      expect { HwfDwpApi::Mock::ClaimsErrors.response(citizen) }.to raise_error(ArgumentError, /9999/)
+    end
+  end
+
   # deceased_palmer.yml and friends: matched, no claims, date of death on the citizen record
   describe 'deceased test citizens' do
     let(:edith_guid) { 'mock-dwp-citizen_015' }

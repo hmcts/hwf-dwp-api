@@ -1,0 +1,39 @@
+# DWP error codes: matched, then get_claims answers code 2000 (DWP internal error, HTTP 500) twice and returns the claims on the third call.
+# Staff app tries 3 times and gets a Yes.
+citizen:
+  internal_id: "citizen_034"
+  matching_scenario: "scenario_1"
+  simulate_claims_error: "2000"
+  claims_error_times: 2
+  match_attributes:
+    lastName: "Barrow"
+    dateOfBirth: "1981-05-09"
+    firstName: "Felix"
+    ninoFragment: "7806"
+    nino: "JC127806B"
+    postcode: "LN1 1HB"
+  # Universal Credit in payment since 01/02/2024 with an open live award under £500 take-home pay, so a Yes
+  claims:
+    - benefitType: "universal_credit"
+      startDate: "2024-02-01"
+      claimDate: "2024-01-20"
+      receiptDate: "2024-01-20"
+      entitlementStartDate: "2024-02-01"
+      periodicity: "calendar_monthly"
+      status: "in_payment"
+      awards:
+        - startDate: "2024-02-01"
+          status: "live"
+          amount: 74500
+          awardType: "fixed_period"
+          isJointClaim: false
+          assessmentAttributes:
+            takeHomePay: 30000
+          awardComponents:
+            - type: "care"
+              subType: "standard_allowance"
+              componentRate: "standard_rate"
+              componentAwardAmount: 74500
+      paymentStatus:
+        - type: "in_receipt_of_ongoing_payment"
+          startDate: "2024-02-01"

@@ -1,0 +1,14 @@
+# DWP error codes: matched, then get_claims answers code 2001 (multiple active claim records, HTTP 422) every time.
+# Staff app records Unspecified error straight away, no retry; it does not count toward DWP down.
+citizen:
+  internal_id: "citizen_036"
+  matching_scenario: "scenario_1"
+  simulate_claims_error: "2001"
+  match_attributes:
+    lastName: "Price"
+    dateOfBirth: "1993-11-02"
+    firstName: "Dominic"
+    ninoFragment: "7808"
+    nino: "JC127808D"
+    postcode: "HR1 2PJ"
+  claims: []
